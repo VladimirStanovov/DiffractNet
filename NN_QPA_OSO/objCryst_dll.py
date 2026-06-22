@@ -2,6 +2,14 @@
 import json
 import os
 import shutil
+import sys
+
+libname = './CIFtoDB.dll'
+libext = '.dll'
+if sys.platform == 'linux':
+    libname = './libCIFtoDB.so'
+    libext = '.so'
+
 
 class CrystLib:
     #def __del__(self):
@@ -11,7 +19,7 @@ class CrystLib:
 
     def __init__(self, proc_id = None):
         self.proc_id = proc_id
-        self.dll_path = './libCIFtoDB.so'
+        self.dll_path = libname
         self.temp_dir = None
 
         if proc_id is not None:
@@ -19,8 +27,8 @@ class CrystLib:
             self.temp_dir = os.path.join(os.getcwd(), str(proc_id))
             os.makedirs(self.temp_dir, exist_ok=True)
             # Копируем DLL в созданную директорию
-            self.dll_path = os.path.join(self.temp_dir, str(proc_id)+'.so')
-            shutil.copyfile('./libCIFtoDB.so', self.dll_path)
+            self.dll_path = os.path.join(self.temp_dir, str(proc_id)+libext)
+            shutil.copyfile(libname, self.dll_path)
 
         # Загрузка библиотеки
         self.lib = ctypes.CDLL(self.dll_path)
