@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TopasShell Version="1061">
+  <Sample Name="PolusD8">
+    <Radiation>CoKa3(0.001)</Radiation>
+    <BkgCoefCount>7</BkgCoefCount>
+    <LPfactor>0.0</LPfactor>
+    <Rp>200.5</Rp>
+    <Rs>200.5</Rs>
+    <SAM>14</SAM>
+    <SAMmin />
+    <SAMmax />
+    <ZError>0.0</ZError>
+    <ZErrorMin />
+    <ZErrorMax />
+    <SampleDisp>0.0</SampleDisp>
+    <SampleDispMin />
+    <SampleDispMax />
+    <AddOneX>-1</AddOneX>
+    <ChangeStartX>0</ChangeStartX>
+    <StartX>6.5</StartX>
+    <UseWeightsOutput>0</UseWeightsOutput>
+    <UseWeightsOutUnited>0</UseWeightsOutUnited>
+    <UseWeightsAddScales>0</UseWeightsAddScales>
+    <UseAtomsOfEachPhaseOut>0</UseAtomsOfEachPhaseOut>
+    <UseExtOutput>-1</UseExtOutput>
+    <UsePSD>0</UsePSD>
+    <PSD_AngRange>4.1</PSD_AngRange>
+    <PSD_EqDiverg>0.395</PSD_EqDiverg>
+    <UseSlitWidth>0</UseSlitWidth>
+    <UseDivergence>0</UseDivergence>
+    <SlitWidth>0.3</SlitWidth>
+    <Divergence>1.0</Divergence>
+    <UseFullAM>-1</UseFullAM>
+    <FAMaddSlits>-1</FAMaddSlits>
+    <TubeFil>12</TubeFil>
+    <TubeFilMin />
+    <TubeFilMax />
+    <SampleLng>15</SampleLng>
+    <SampleLngMin>0.5</SampleLngMin>
+    <SampleLngMax />
+    <ApPrimSlit>2.5</ApPrimSlit>
+    <ApPrimSlitMin />
+    <ApPrimSlitMax />
+    <ApSecSlit>2.5</ApSecSlit>
+    <ApSecSlitMin />
+    <ApSecSlitMax />
+    <FixRecSlit>-1</FixRecSlit>
+    <FixZeroErr>-1</FixZeroErr>
+    <FixSamDispl>0</FixSamDispl>
+    <FixTubeFil>-1</FixTubeFil>
+    <FixSamLen>-1</FixSamLen>
+    <FixApPrimSlit>-1</FixApPrimSlit>
+    <FixApSecSlit>-1</FixApSecSlit>
+  </Sample>
+  <Phase Name="Phlogopite_1M_95346" SpaceGroup="C12/m1" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="5.317572" Max="5.337237">@ 5.3158</CellPar>
+    <CellPar Name="b" Min="9.219821" Max="9.252555">@ 9.2036</CellPar>
+    <CellPar Name="c" Min="10.226575" Max="10.248092">@ 10.31</CellPar>
+    <CellPar Name="alpha" Min="90.0" Max="90.0">90</CellPar>
+    <CellPar Name="beta" Min="99.326012" Max="99.798606">@ 99.891</CellPar>
+    <CellPar Name="gamma" Min="90.0" Max="90.0">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.03">@ 0.005</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.5</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="79.42427" Max="211.090524">@ 100</Par>
+      <Par Name="Strain" Min="0.070301" Max="0.203913">@ 0.05</Par>
+    </ReflectionProfileScherrer>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>1</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="0 0 1" Min="0.508439" Max="0.760823">1.0</MDtexDir>
+    <Atom Name="Si1" Type="Si+4" X="0.57651" Xmin="" Xmax="" Y="0.16674" Ymin="" Ymax="" Z="0.22952" Zmin="" Zmax="" Occ="0.75" OccMin="0.75" OccMax="0.75" Beq="0.6263909" BeqMin="0.62639" BeqMax="0.62639" NumPosns="8" />
+    <Atom Name="Al1" Type="Al+3" X="0.57651" Xmin="" Xmax="" Y="0.16674" Ymin="" Ymax="" Z="0.22952" Zmin="" Zmax="" Occ="0.25" OccMin="0.25" OccMax="0.25" Beq="0.6263909" BeqMin="0.62639" BeqMax="0.62639" NumPosns="8" />
+    <Atom Name="Mg1" Type="Mg+2" X="0" Xmin="" Xmax="" Y="0.5" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="0.6448141" BeqMin="0.64481" BeqMax="0.64481" NumPosns="2" />
+    <Atom Name="Mg2" Type="Mg+2" X="0" Xmin="" Xmax="" Y="0.83171" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="0.6421822" BeqMin="0.64218" BeqMax="0.64218" NumPosns="4" />
+    <Atom Name="K1" Type="K+1" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="2.526619" BeqMin="2.52662" BeqMax="2.52662" NumPosns="2" />
+    <Atom Name="O1" Type="O-2" X="0.83048" Xmin="" Xmax="" Y="0.22662" Ymin="" Ymax="" Z="0.17165" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="1.418591" BeqMin="1.41859" BeqMax="1.41859" NumPosns="8" />
+    <Atom Name="O2" Type="O-2" X="0.50995" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.17174" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="1.34753" BeqMin="1.34753" BeqMax="1.34753" NumPosns="4" />
+    <Atom Name="O3" Type="O-2" X="0.63068" Xmin="" Xmax="" Y="0.16673" Ymin="" Ymax="" Z="0.39172" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="0.7658813" BeqMin="0.76588" BeqMax="0.76588" NumPosns="8" />
+    <Atom Name="O4" Type="O-2" X="0.13248" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.3988" Zmin="" Zmax="" Occ="1" OccMin="1.0" OccMax="1.0" Beq="0.8290467" BeqMin="0.82905" BeqMax="0.82905" NumPosns="4" />
+    <Atom Name="H1" Type="H+1" X="0.111" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.318" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="2.35" BeqMin="" BeqMax="" NumPosns="4" />
+  </Phase>
+</TopasShell>

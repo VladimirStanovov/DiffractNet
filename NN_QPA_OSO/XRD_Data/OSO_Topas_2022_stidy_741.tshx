@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<TopasShell Version="1066">
+  <Sample Name="OSO">
+    <Radiation>CuKa2(0.001)</Radiation>
+    <BkgCoefCount>9</BkgCoefCount>
+    <LPfactor>26.37</LPfactor>
+    <Rp>200</Rp>
+    <Rs>200</Rs>
+    <SAM>14</SAM>
+    <SAMmin>5</SAMmin>
+    <SAMmax>25</SAMmax>
+    <ZError>0.02</ZError>
+    <ZErrorMin>-0.06</ZErrorMin>
+    <ZErrorMax>0.17</ZErrorMax>
+    <SampleDisp>0.0</SampleDisp>
+    <SampleDispMin>-0.001</SampleDispMin>
+    <SampleDispMax>0.001</SampleDispMax>
+    <AddOneX>-1</AddOneX>
+    <ChangeStartX>0</ChangeStartX>
+    <StartX>6.5</StartX>
+    <UseWeightsOutput>0</UseWeightsOutput>
+    <UseWeightsOutUnited>0</UseWeightsOutUnited>
+    <UseWeightsAddScales>0</UseWeightsAddScales>
+    <UseAtomsOfEachPhaseOut>0</UseAtomsOfEachPhaseOut>
+    <UseExtOutput>-1</UseExtOutput>
+    <UsePSD>0</UsePSD>
+    <PSD_AngRange>4.1</PSD_AngRange>
+    <PSD_EqDiverg>0.395</PSD_EqDiverg>
+    <UseSlitWidth>0</UseSlitWidth>
+    <UseDivergence>0</UseDivergence>
+    <SlitWidth>0.3</SlitWidth>
+    <Divergence>1.0</Divergence>
+    <Comments></Comments>
+    <UseFullAM>0</UseFullAM>
+    <FAMaddSlits>0</FAMaddSlits>
+    <TubeFil>12.0</TubeFil>
+    <TubeFilMin>12</TubeFilMin>
+    <TubeFilMax>12</TubeFilMax>
+    <SampleLng>2.25</SampleLng>
+    <SampleLngMin>2</SampleLngMin>
+    <SampleLngMax>3.25</SampleLngMax>
+    <ApPrimSlit>2.3</ApPrimSlit>
+    <ApPrimSlitMin></ApPrimSlitMin>
+    <ApPrimSlitMax></ApPrimSlitMax>
+    <ApSecSlit>2.3</ApSecSlit>
+    <ApSecSlitMin></ApSecSlitMin>
+    <ApSecSlitMax></ApSecSlitMax>
+    <FixRecSlit>-1</FixRecSlit>
+    <FixZeroErr>0</FixZeroErr>
+    <FixSamDispl>-1</FixSamDispl>
+    <FixTubeFil>-1</FixTubeFil>
+    <FixSamLen>0</FixSamLen>
+    <FixApPrimSlit>0</FixApPrimSlit>
+    <FixApSecSlit>0</FixApSecSlit>
+  </Sample>
+  <Phase Name="alpha-Al2O3" SpaceGroup="R-3cH" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="4.755" Max="4.77">@ 4.7698</CellPar>
+    <CellPar Name="b" Min="" Max="">4.7698</CellPar>
+    <CellPar Name="c" Min="13" Max="13.05">@ 13.0243</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">120</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.12">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.9</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="45" Max="150">@ 100</Par>
+      <Par Name="Strain" Min="0.01" Max="0.35">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="0 0 1" Min="0.5" Max="1.25">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="Al1" Type="Al+3" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.35231" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.4129442" BeqMin="0.3" BeqMax="0.42" NumPosns="12"/>
+    <Atom Name="O1" Type="O-2" X="0.6936" Xmin="0.69" Xmax="0.70" Y="0" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.4618975" BeqMin="" BeqMax="" NumPosns="18"/>
+  </Phase>
+  <Phase Name="gamma-Al2O3" SpaceGroup="Fd-3mZ" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="7.9" Max="7.937">@ 7.911</CellPar>
+    <CellPar Name="b" Min="" Max="">7.911</CellPar>
+    <CellPar Name="c" Min="" Max="">7.911</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.03">@ 0.005</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.5</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="45" Max="300">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.35">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.5">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="O1" Type="O" X="0.2547" Xmin="" Xmax="" Y="0.2547" Ymin="" Ymax="" Z="0.2547" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="32"/>
+    <Atom Name="Al1" Type="Al" X="0.5" Xmin="" Xmax="" Y="0.5" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="0.58" OccMin="" OccMax="" Beq="0.5" BeqMin="" BeqMax="" NumPosns="16"/>
+    <Atom Name="Al2" Type="Al" X="0.125" Xmin="" Xmax="" Y="0.125" Ymin="" Ymax="" Z="0.125" Zmin="" Zmax="" Occ="0.84" OccMin="" OccMax="" Beq="0.5" BeqMin="" BeqMax="" NumPosns="8"/>
+    <Atom Name="Al3" Type="Al" X="0.0272" Xmin="" Xmax="" Y="0.0272" Ymin="" Ymax="" Z="0.0272" Zmin="" Zmax="" Occ="0.17" OccMin="" OccMax="" Beq="0.5" BeqMin="" BeqMax="" NumPosns="32"/>
+  </Phase>
+  <Phase Name="Cryolite" SpaceGroup="P121/c1" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="" Max="">@ 5.405</CellPar>
+    <CellPar Name="b" Min="" Max="">@ 5.58</CellPar>
+    <CellPar Name="c" Min="" Max="">@ 9.4464</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">@ 124.767</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.1">@ 0.03</Par>
+      <Par Name="V" Min="0" Max="0.3">0</Par>
+      <Par Name="U" Min="0" Max="0.1">0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.8</Par>
+      <Par Name="NB" Min="0" Max="0.02">0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="70" Max="500">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.4">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>1</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 1 1" Min="0.95" Max="1.1">1.0</MDtexDir>
+    <Atom Name="Na1" Type="Na+1" X="0.5" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.75" BeqMin="0.5" BeqMax="2.5" NumPosns="2"/>
+    <Atom Name="Al1" Type="Al+3" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.85" BeqMin="0.3" BeqMax="2" NumPosns="2"/>
+    <Atom Name="Na2" Type="Na+1" X="@ 0.2656" Xmin="0.2638" Xmax="0.27" Y="@ 0.448" Ymin="0.448" Ymax="0.456" Z="@ 0.2518" Zmin="0.2501" Zmax="0.257" Occ="1" OccMin="" OccMax="" Beq="1.76" BeqMin="0.5" BeqMax="2.5" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="@ 0.1152" Xmin="0.114" Xmax="0.12" Y="@ 0.0436" Ymin="0.042" Ymax="0.05" Z="@ 0.2182" Zmin="0.214" Zmax="0.223" Occ="1" OccMin="" OccMax="" Beq="1.35" BeqMin="0.5" BeqMax="2" NumPosns="4"/>
+    <Atom Name="F2" Type="F-1" X="@ 0.2285" Xmin="0.22" Xmax="0.229" Y="@ 0.7285" Ymin="0.73" Ymax="0.738" Z="@ 0.0638" Zmin="0.057" Zmax="0.064" Occ="1" OccMin="" OccMax="" Beq="1.2" BeqMin="0.5" BeqMax="2" NumPosns="4"/>
+    <Atom Name="F3" Type="F-1" X="@ 0.3215" Xmin="0.307" Xmax="0.319" Y="@ 0.1765" Ymin="0.166" Ymax="0.18" Z="@ 0.047" Zmin="0.037" Zmax="0.048" Occ="1" OccMin="" OccMax="" Beq="1.4" BeqMin="0.5" BeqMax="2" NumPosns="4"/>
+  </Phase>
+  <Phase Name="Chiolite" SpaceGroup="P4/mnc" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="7.02" Max="7.06">@ 7.0138</CellPar>
+    <CellPar Name="b" Min="" Max="">7.0138</CellPar>
+    <CellPar Name="c" Min="10.36" Max="10.403">@ 10.402</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.075">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.3">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.9</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="80" Max="350">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.40">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>1</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <UserPar Name="xxNa" Min="0.276" Max="0.279">0.2768</UserPar>
+    <MDtexDir Name="0 0 1" Min="0.93" Max="1">1.0</MDtexDir>
+    <Atom Name="Na1" Type="Na+1" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.55" BeqMin="0.7" BeqMax="1.7" NumPosns="2"/>
+    <Atom Name="Na2" Type="Na+1" X="0.277" Xmin="" Xmax="" Y="0.777" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.7" BeqMin="0.7" BeqMax="1.7" NumPosns="8"/>
+    <Atom Name="Al1" Type="Al+3" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.4" BeqMin="0.7" BeqMax="1.7" NumPosns="2"/>
+    <Atom Name="Al2" Type="Al+3" X="0" Xmin="" Xmax="" Y="0.5" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.88" BeqMin="0.7" BeqMax="1.7" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="@ 0.1711" Zmin="0.17" Zmax="0.177" Occ="1" OccMin="" OccMax="" Beq="1.7" BeqMin="0.7" BeqMax="1.7" NumPosns="4"/>
+    <Atom Name="F2" Type="F-1" X="@ 0.0642" Xmin="0.058" Xmax="0.064" Y="@ 0.2477" Ymin="0.245" Ymax="0.252" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.7" BeqMin="0.7" BeqMax="1.7" NumPosns="8"/>
+    <Atom Name="F3" Type="F-1" X="@ 0.1794" Xmin="0.176" Xmax="0.182" Y="@ 0.5364" Ymin="0.532" Ymax="0.54" Z="@ 0.1198" Zmin="0.118" Zmax="0.121" Occ="1" OccMin="" OccMax="" Beq="1.5" BeqMin="0.7" BeqMax="1.7" NumPosns="16"/>
+  </Phase>
+  <Phase Name="NaCa(AlF6)" SpaceGroup="P121/c1" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="8.715" Max="8.795">@ 8.7423</CellPar>
+    <CellPar Name="b" Min="5.145" Max="5.21">@ 5.1927</CellPar>
+    <CellPar Name="c" Min="20.3" Max="20.46">@ 20.35139</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="90.85" Max="91.5">@ 91.499</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.15">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.9</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="30" Max="150">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.4">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.25">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="Na1" Type="Na+1" X="@ 0.9768" Xmin="0.966800" Xmax="0.986800" Y="@ 0.2543" Ymin="0.244300" Ymax="0.264300" Z="@ 0.1781" Zmin="0.168100" Zmax="0.188100" Occ="1" OccMin="" OccMax="" Beq="2.2" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Na2" Type="Na+1" X="@ 0.9681" Xmin="0.958100" Xmax="0.978100" Y="@ 0.2734" Ymin="0.263400" Ymax="0.283400" Z="@ 0.4413" Zmin="0.431300" Zmax="0.451300" Occ="1" OccMin="" OccMax="" Beq="2.2" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Ca1" Type="Ca+2" X="@ 0.6403" Xmin="0.630300" Xmax="0.650300" Y="@ 0.2375" Ymin="0.227500" Ymax="0.247500" Z="@ 0.3108" Zmin="0.300800" Zmax="0.320800" Occ="1" OccMin="" OccMax="" Beq="0.85" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Ca2" Type="Ca+2" X="@ 0.6357" Xmin="0.625700" Xmax="0.645700" Y="@ 0.3219" Ymin="0.311900" Ymax="0.331900" Z="@ 0.5623" Zmin="0.552300" Zmax="0.572300" Occ="1" OccMin="" OccMax="" Beq="0.85" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Al1" Type="Al+3" X="@ 0.2588" Xmin="0.248800" Xmax="0.268800" Y="@ 0.2561" Ymin="0.246100" Ymax="0.266100" Z="@ 0.3189" Zmin="0.308900" Zmax="0.328900" Occ="1" OccMin="" OccMax="" Beq="1.67" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Al2" Type="Al+3" X="@ 0.2528" Xmin="0.242800" Xmax="0.262800" Y="@ 0.1903" Ymin="0.180300" Ymax="0.200300" Z="@ 0.5688" Zmin="0.558800" Zmax="0.578800" Occ="1" OccMin="" OccMax="" Beq="1.67" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="0.629" Xmin="0.619000" Xmax="0.639000" Y="0.6261" Ymin="0.616100" Ymax="0.636100" Z="0.4777" Zmin="0.467700" Zmax="0.487700" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F2" Type="F-1" X="0.5863" Xmin="0.576300" Xmax="0.596300" Y="0.6137" Ymin="0.603700" Ymax="0.623700" Z="0.6397" Zmin="0.629700" Zmax="0.649700" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F3" Type="F-1" X="0.7338" Xmin="0.723800" Xmax="0.743800" Y="0.0827" Ymin="0.072700" Ymax="0.092700" Z="0.4824" Zmin="0.472400" Zmax="0.492400" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F4" Type="F-1" X="0.3809" Xmin="0.370900" Xmax="0.390900" Y="0.1003" Ymin="0.090300" Ymax="0.110300" Z="0.2626" Zmin="0.252600" Zmax="0.272600" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F5" Type="F-1" X="0.1625" Xmin="0.152500" Xmax="0.172500" Y="-0.0247" Ymin="-0.034700" Ymax="-0.014700" Z="0.6328" Zmin="0.622800" Zmax="0.642800" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F6" Type="F-1" X="0.1643" Xmin="0.154300" Xmax="0.174300" Y="0.4377" Ymin="0.427700" Ymax="0.447700" Z="0.3814" Zmin="0.371400" Zmax="0.391400" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F7" Type="F-1" X="0.2357" Xmin="0.225700" Xmax="0.245700" Y="0.4669" Ymin="0.456900" Ymax="0.476900" Z="0.6229" Zmin="0.612900" Zmax="0.632900" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F8" Type="F-1" X="0.5786" Xmin="0.568600" Xmax="0.588600" Y="0.5944" Ymin="0.584400" Ymax="0.604400" Z="0.8821" Zmin="0.872100" Zmax="0.892100" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F9" Type="F-1" X="0.9132" Xmin="0.903200" Xmax="0.923200" Y="0.6404" Ymin="0.630400" Ymax="0.650400" Z="0.226" Zmin="0.216000" Zmax="0.236000" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F10" Type="F-1" X="0.7403" Xmin="0.730300" Xmax="0.750300" Y="0.0217" Ymin="0.011700" Ymax="0.031700" Z="0.2307" Zmin="0.220700" Zmax="0.240700" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F11" Type="F-1" X="0.7551" Xmin="0.745100" Xmax="0.765100" Y="0.0334" Ymin="0.023400" Ymax="0.043400" Z="0.6259" Zmin="0.615900" Zmax="0.635900" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F12" Type="F-1" X="0.0748" Xmin="0.064800" Xmax="0.084800" Y="0.279" Ymin="0.269000" Ymax="0.289000" Z="0.5398" Zmin="0.529800" Zmax="0.549800" Occ="1" OccMin="" OccMax="" Beq="1.46" BeqMin="" BeqMax="" NumPosns="4"/>
+  </Phase>
+  <Phase Name="Na2Ca3Al2F14" SpaceGroup="I213" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="10.242" Max="10.254">@ 10.257</CellPar>
+    <CellPar Name="b" Min="" Max="">10.257</CellPar>
+    <CellPar Name="c" Min="" Max="">10.257</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.15">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.75</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="65" Max="350">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.4">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>1</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 1 1" Min="0.72" Max="1">1.0</MDtexDir>
+    <Atom Name="Ca1" Type="Ca+2" X="0.4667" Xmin="0.46" Xmax="0.47" Y="0" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="12"/>
+    <Atom Name="Al1" Type="Al+3" X="0.2482" Xmin="" Xmax="" Y="0.2482" Ymin="" Ymax="" Z="0.2482" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="8"/>
+    <Atom Name="Na1" Type="Na+1" X="0.0847" Xmin="" Xmax="" Y="0.0847" Ymin="" Ymax="" Z="0.0847" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="8"/>
+    <Atom Name="F1" Type="F-1" X="0.1387" Xmin="" Xmax="" Y="0.3062" Ymin="" Ymax="" Z="0.1206" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="24"/>
+    <Atom Name="F2" Type="F-1" X="0.364" Xmin="" Xmax="" Y="0.3627" Ymin="" Ymax="" Z="0.1873" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="24"/>
+    <Atom Name="F3" Type="F-1" X="0.4614" Xmin="" Xmax="" Y="0.4614" Ymin="" Ymax="" Z="0.4614" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="@ 0.7" BeqMin="0.7" BeqMax="1.5" NumPosns="8"/>
+  </Phase>
+  <Phase Name="Fluorite" SpaceGroup="Fm-3m" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="5.463" Max="5.469">@ 5.462</CellPar>
+    <CellPar Name="b" Min="" Max="">5.462</CellPar>
+    <CellPar Name="c" Min="" Max="">5.462</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.15">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.8</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="60" Max="350">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.38">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.25">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="Ca1" Type="Ca+2" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.57" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="0.25" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.81" BeqMin="" BeqMax="" NumPosns="8"/>
+  </Phase>
+  <Phase Name="Weberite" SpaceGroup="Imma" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="7.05" Max="7.072">@ 7.05</CellPar>
+    <CellPar Name="b" Min="9.98" Max="10.02">@ 9.979</CellPar>
+    <CellPar Name="c" Min="7.29" Max="7.31">@ 7.297</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.005" Max="0.12">@ 0.02</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.8</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="150" Max="500">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.35">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>1</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="0 1 1" Min="0.9" Max="1">1.0</MDtexDir>
+    <Atom Name="Na1" Type="Na+1" X="0.25" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.75" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="Na2" Type="Na+1" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="Mg1" Type="Mg+2" X="0.25" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="Al1" Type="Al+3" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="0" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.1362" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="F2" Type="F-1" X="0" Xmin="" Xmax="" Y="0.4144" Ymin="" Ymax="" Z="0.7213" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="8"/>
+    <Atom Name="F3" Type="F-1" X="0.1845" Xmin="" Xmax="" Y="0.3874" Ymin="" Ymax="" Z="0.4304" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="0.5" BeqMax="1.5" NumPosns="16"/>
+  </Phase>
+  <Phase Name="Neighborite" SpaceGroup="Pnma" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="5.488" Max="5.5">@ 5.4928</CellPar>
+    <CellPar Name="b" Min="7.665" Max="7.69">@ 7.71</CellPar>
+    <CellPar Name="c" Min="5.36" Max="5.387">@ 5.37645</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.01" Max="0.1">@ 0.01</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="0.85">@ 0.75</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="100" Max="350">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.3">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="0 1 0" Min="0.5" Max="1">1.0</MDtexDir>
+    <Atom Name="Na1" Type="Na+1" X="0.03975" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.488" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.762317" BeqMin="1" BeqMax="2" NumPosns="4"/>
+    <Atom Name="Mg1" Type="Mg+2" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.7745665" BeqMin="0.5" BeqMax="1.5" NumPosns="4"/>
+    <Atom Name="F1" Type="F-1" X="0.4547" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.58705" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="3.754397" BeqMin="1" BeqMax="4" NumPosns="4"/>
+    <Atom Name="F2" Type="F-1" X="0.29105" Xmin="" Xmax="" Y="0.04897" Ymin="" Ymax="" Z="0.21265" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.37148" BeqMin="1" BeqMax="2" NumPosns="8"/>
+  </Phase>
+  <Phase Name="Elpasolite" SpaceGroup="Fm-3m" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="8.095" Max="8.112">@ 8.093</CellPar>
+    <CellPar Name="b" Min="" Max="">8.093</CellPar>
+    <CellPar Name="c" Min="" Max="">8.093</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.03">@ 0.01</Par>
+      <Par Name="V" Min="0" Max="0.5">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.03">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.9</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="60" Max="200">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.4">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.5">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="K" Type="K" X="0.25" Xmin="" Xmax="" Y="0.25" Ymin="" Ymax="" Z="0.25" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.223831" BeqMin="" BeqMax="" NumPosns="8"/>
+    <Atom Name="Na" Type="Na" X="0.5" Xmin="" Xmax="" Y="0.5" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.8448381" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="Al" Type="Al" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="0.5842806" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F" Type="F" X="0.2225" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1.279101" BeqMin="" BeqMax="" NumPosns="24"/>
+  </Phase>
+  <Phase Name="K1.58Al11O17" SpaceGroup="R-3mH" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="5.585" Max="5.62">@ 5.63</CellPar>
+    <CellPar Name="b" Min="" Max="">5.63</CellPar>
+    <CellPar Name="c" Min="33.89" Max="34.17">@ 34.01</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">120</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.03">@ 0.005</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.5</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="45" Max="150">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.37">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.5">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="Al1" Type="Al" X="0.16712" Xmin="" Xmax="" Y="-0.16712" Ymin="" Ymax="" Z="0.9298" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="18"/>
+    <Atom Name="Al2" Type="Al" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.34988" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="6"/>
+    <Atom Name="Al3" Type="Al" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.44935" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="6"/>
+    <Atom Name="Al4" Type="Al" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="3"/>
+    <Atom Name="O1" Type="O" X="0.16419" Xmin="" Xmax="" Y="-0.16419" Ymin="" Ymax="" Z="0.23615" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="18"/>
+    <Atom Name="O2" Type="O" X="0.15396" Xmin="" Xmax="" Y="-0.15396" Ymin="" Ymax="" Z="0.03384" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="18"/>
+    <Atom Name="O3" Type="O" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.09512" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="6"/>
+    <Atom Name="O4" Type="O" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.2952" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="6"/>
+    <Atom Name="O5" Type="O" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="3"/>
+    <Atom Name="K1" Type="K" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="-0.17086" Zmin="" Zmax="" Occ="0.31" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="6"/>
+    <Atom Name="K2" Type="K" X="0.08717" Xmin="" Xmax="" Y="-0.08717" Ymin="" Ymax="" Z="-0.16784" Zmin="" Zmax="" Occ="0.16" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="18"/>
+  </Phase>
+  <Phase Name="Villiaumite" SpaceGroup="Fm-3m" Exported="-1" LeBail_mode="0" Save_CIF="0" Save_Peaks="0" View_str="0">
+    <CellPar Name="a" Min="4.633" Max="4.64">@ 4.634</CellPar>
+    <CellPar Name="b" Min="" Max="">4.634</CellPar>
+    <CellPar Name="c" Min="" Max="">4.634</CellPar>
+    <CellPar Name="alpha" Min="" Max="">90</CellPar>
+    <CellPar Name="beta" Min="" Max="">90</CellPar>
+    <CellPar Name="gamma" Min="" Max="">90</CellPar>
+    <ReflectionProfilePseudoVoigt>
+      <Par Name="W" Min="0.001" Max="0.03">@ 0.005</Par>
+      <Par Name="V" Min="0" Max="0.2">@ 0.0</Par>
+      <Par Name="U" Min="0" Max="0.05">@ 0.0</Par>
+      <Par Name="NA" Min="0" Max="1">@ 0.5</Par>
+      <Par Name="NB" Min="0" Max="0.02">@ 0.0</Par>
+      <Par Name="NC" Min="0" Max="0.001">0.0</Par>
+    </ReflectionProfilePseudoVoigt>
+    <ReflectionProfileScherrer>
+      <Par Name="CS" Min="90" Max="170">@ 100</Par>
+      <Par Name="Strain" Min="0.001" Max="0.38">@ 0.1</Par>
+    </ReflectionProfileScherrer>
+    <PrefStrainUse>0</PrefStrainUse>
+    <PrefStrainDir>0 0 1</PrefStrainDir>
+    <Comments></Comments>
+    <PrefStrainParams>
+      <Par Name="Strain" Min="0.0001" Max="2.0">0.05</Par>
+      <Par Name="Scale" Min="0.0001" Max="1.0">0.01</Par>
+    </PrefStrainParams>
+    <PARS>0</PARS>
+    <ProfileChoise>1</ProfileChoise>
+    <TextureChoise>0</TextureChoise>
+    <Spherical_Harmonics_Order>2</Spherical_Harmonics_Order>
+    <MDtexDir Name="1 0 0" Min="0.5" Max="1.5">1.0</MDtexDir>
+    <MDtexDir Name="1 1 1" Min="0.5" Max="2.0">1.0</MDtexDir>
+    <Atom Name="Na" Type="Na" X="0" Xmin="" Xmax="" Y="0" Ymin="" Ymax="" Z="0" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="4"/>
+    <Atom Name="F" Type="F" X="0.5" Xmin="" Xmax="" Y="0.5" Ymin="" Ymax="" Z="0.5" Zmin="" Zmax="" Occ="1" OccMin="" OccMax="" Beq="1" BeqMin="" BeqMax="" NumPosns="4"/>
+  </Phase>
+</TopasShell>

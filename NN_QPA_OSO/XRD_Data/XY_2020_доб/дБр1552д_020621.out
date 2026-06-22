@@ -1,0 +1,644 @@
+macro ParFileName()
+{
+   "E:\Business\Py\NN_QPA_OSO\XRD_Data\XY_2020_доб\..\ParamAnalysisData\дЅр1552д_020621.txt"
+}
+
+macro Rewrite_DDMparam()
+{
+  out ParFileName() 
+	Out_String("SRfactor SZero SDispl STransp + C Wght ESU SF A B C Alpha Beta Gamma NA NB NC P1 P2 P3 U V W Z hh kk ll hk hl kl s1 s2 s3 s4 s5 s6\n")
+	Out(Get(r_wp), "%6.3f ")
+	Out(zeval, "%6.5f ")
+	Out(sdval, "%6.5f 0")
+}
+
+macro Out_Cell_Params(argwt1, argsc1)
+{
+      out ParFileName() append
+	Out(Get(argwt1), " %6.3f", " %5.5f")
+	Out(Get(argsc1), " %6.9f")	
+	Out(Get(a), " %6.5f")
+	Out(Get(b), " %6.5f")
+	Out(Get(c), " %6.5f")
+	Out(Get(al), " %6.4f")
+	Out(Get(be), " %6.4f")
+	Out(Get(ga), " %6.4f")
+}
+
+macro PV_Peak_Type_w_Out(ha, hav, hb, hbv, hc, hcv, lora, lorav, lorb, lorbv, lorc, lorcv, po1_par, po2_par, po3_par)
+{
+   #m_argu ha
+   #m_argu hb
+   #m_argu hc
+   #m_argu lora
+   #m_argu lorb
+   #m_argu lorc
+   If_Prm_Eqn_Rpt(ha,   hav, )  ' W
+   If_Prm_Eqn_Rpt(hb,   hbv, )  ' V
+   If_Prm_Eqn_Rpt(hc,   hcv, )  ' U
+   If_Prm_Eqn_Rpt(lora, lorav, )  ' NA
+   If_Prm_Eqn_Rpt(lorb, lorbv, )  ' NB
+   If_Prm_Eqn_Rpt(lorc, lorcv, )  ' NC
+   peak_type pv
+      pv_lor = CeV(lora,lorav) + CeV(lorb,lorbv) Tan(Th) + CeV(lorc,lorcv) / Cos(Th);
+      pv_fwhm = CeV(ha,hav) + CeV(hb,hbv) Tan(Th) + CeV(hc,hcv) / Cos(Th);
+
+      out ParFileName() append
+	Out(lora, " %6.4f")
+	Out(lorb, " %6.4f")
+	Out(lorc, " %6.4f")
+	Out(sam, " %6.4f 0 0")
+	Out(hc, " %6.4f")
+	Out(hb, " %6.4f")
+	Out(ha, " %6.4f 0")
+	Out(po1_par, " %6.5f")
+	Out(po2_par, " %6.5f")
+	Out(po3_par, " %6.5f 0 0 0 0 0 0 0 0 0")
+}
+
+macro CS_L_w_Out(c, v)
+{
+   #m_argu c
+   If_Prm_Eqn_Rpt(c, v, min .3 max = Min(Val 2 + .3, 10000);)
+   lor_fwhm = 0.1 Rad Lam / (Cos(Th) CeV(c,v));
+
+     out ParFileName() append
+	Out(c, " %6.4f 0 1001")   ' NA, NB, NC
+	Out(sam, " %6.4f 0 0")
+}
+
+macro Strain_L_w_Out(c, v, po1_par, po2_par, po3_par)
+{
+   #m_argu c
+    If_Prm_Eqn_Rpt(c, v, min .0001 max 5)
+    lor_fwhm = CeV(c,v) Tan(Th);
+
+     out ParFileName() append
+	Out(c, " 0 0 %6.4f 0")   ' U, V, W
+	Out(po1_par, " %6.5f")
+	Out(po2_par, " %6.5f")
+	Out(po3_par, " %6.5f 0 0 0 0 0 0 0 0 0")
+}
+
+macro PVII_Peak_Type_w_Out(ha, hav,   hb, hbv,   hc, hcv,   ma, mav,   mb, mbv,   mc, mcv)
+{
+   #m_argu ha
+   #m_argu hb
+   #m_argu hc
+   #m_argu ma
+   #m_argu mb
+   #m_argu mc
+   If_Prm_Eqn_Rpt(ha, hav, min 0.0001 max 0.02)
+   If_Prm_Eqn_Rpt(hb, hbv, min 0.0001 max 0.02)
+   If_Prm_Eqn_Rpt(hc, hcv, min 0.0001 max 0.3)
+   If_Prm_Eqn_Rpt(ma, mav, min 0.0001 max 0.1)
+   If_Prm_Eqn_Rpt(mb, mbv, min 0.0001 max 0.1)
+   If_Prm_Eqn_Rpt(mc, mcv, min 0.0001 max 1)
+   peak_type spvii
+      m1 = .6 + CeV(ma,mav) + CeV(mb,mbv) / Cos(Th) + CeV(mc,mcv) Tan(Th);
+      m2 = Get(m1);
+      h1 = CeV(ha,hav) + CeV(hb,hbv) / Cos(Th) + CeV(hc,hcv) Tan(Th);
+      h2 = Get(h1);
+
+     out ParFileName() append
+	Out(ma, " %6.4f")
+	Out(mb, " %6.4f")
+	Out(mc, " %6.4f 0 0")
+	Out(sam, " %6.4f 0 0")
+	Out(hc, " %6.4f")
+	Out(hb, " %6.4f")
+	Out(ha, " %6.4f 0 0 0 0 0 0 0 0 0 0 0 0 0")
+}
+
+macro Out_Site
+{
+     out ParFileName() append
+     load out_record out_fmt out_eqn {
+          "\n%5s" =Get(site);   
+          " %4s"  =Get(atom); 
+          " %7.5f" =Get(x);      
+          " %7.5f" =Get(y);
+          " %7.5f" =Get(z);
+          " %7.5f" =Get(beq);
+          " %7.5f" =Get(occ);' * Get(num_posns);
+      }
+}
+
+
+
+
+'======================= End of Macroses ================================
+
+do_errors
+r_wp  5.319 r_exp  3.747 r_p  4.057 r_wp_dash  6.596 r_p_dash  5.271 r_exp_dash  4.646 weighted_Durbin_Watson  1.091 gof  1.420
+
+
+xdd "дЅр1552д_020621.xy"
+  x_calculation_step 0.02
+  CuKa2(0.001)
+  bkg @  174.035292`_1.24257848 -57.9197124`_1.01312606  33.3941908`_1.44827777 -33.6942678`_1.05940559  39.0237153`_0.942284014 -11.5817155`_0.880506544  0.909329111`_0.906541558
+  Simple_Axial_Model(!sam, 14 min 5 max 25)
+  LP_Factor(, 26.37)
+  Rp 200
+  Rs 200
+  ZE(zeval, 0.01948`_0.00075 min -0.06 max 0.06)
+  SD(!sdval, 0.0 min -0.001 max 0.001)
+
+  Rewrite_DDMparam()
+
+'======== Phase 1 ========
+
+str
+  phase_name alpha-Al2O3
+  space_group R-3cH
+  Hexagonal(@  4.76211`_0.00346_LIMIT_MIN_4.755 min 4.755 max 4.77, @  13.04565`_0.01113_LIMIT_MIN_13 min 13 max 13.05)
+  scale @  0.0000788200`_0.0000083436
+  r_bragg  1.19233222
+  weight_percent  0.893_0.094
+
+  prm !po1_1 1
+  prm !po2_1 1
+  prm !po3_1 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph1cs  45.00031`_29.14024_LIMIT_MIN_45 min 45 max 150
+  prm ph1str  0.35000`_0.37734_LIMIT_MIN_0.01 min 0.01 max 0.35
+  CS_L_w_Out(@, =ph1cs;)
+  Strain_L_w_Out(@, =ph1str;, po1_1, po2_1, po3_1)
+
+  site Al1  x 0       y 0       z 0.35231  occ Al+3  1  beq 0.4129442  Out_Site
+  site O1   x 0.6936  y 0       z 0.25     occ O-2   1  beq 0.4618975  Out_Site
+
+'======== Phase 2 ========
+
+str
+  phase_name gamma-Al2O3
+  space_group Fd-3mZ
+  Cubic(@  7.93642`_598.10061_LIMIT_MIN_7.9 min 7.9 max 7.937)
+  scale @  0.0000000001`_0.0000030440_LIMIT_MIN_1e-011
+  r_bragg  1.28671134
+  weight_percent  0.000_0.119
+
+  prm !po1_2 1
+  prm !po2_2 1
+  prm !po3_2 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph2cs  45.00059`_7877847.78990_LIMIT_MIN_45 min 45 max 300
+  prm ph2str  0.34998`_78578.11359_LIMIT_MIN_0.001 min 0.001 max 0.35
+  CS_L_w_Out(@, =ph2cs;)
+  Strain_L_w_Out(@, =ph2str;, po1_2, po2_2, po3_2)
+
+  site O1   x 0.2547  y 0.2547  z 0.2547   occ O     1  beq 1  Out_Site
+  site Al1  x 0.5     y 0.5     z 0.5      occ Al    0.58  beq 0.5  Out_Site
+  site Al2  x 0.125   y 0.125   z 0.125    occ Al    0.84  beq 0.5  Out_Site
+  site Al3  x 0.0272  y 0.0272  z 0.0272   occ Al    0.17  beq 0.5  Out_Site
+
+'======== Phase 3 ========
+
+str
+  phase_name Cryolite
+  space_group P121/c1
+  a @  5.41446`_0.00014
+  b @  5.59538`_0.00015
+  c @  9.46473`_0.00034
+  be @  124.74300`_0.00245
+  scale @  0.0119518581`_0.0000273781
+  r_bragg  1.41245548
+  weight_percent  85.484_0.271
+
+  PO(po1_3, 1.01361`_0.00623 min 0.95 max 1.1, !mdangle1_3, 1 1 1)
+  prm !po2_3 1
+  prm !po3_3 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(6, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph3cs  197.21228`_8.97530 min 70 max 500
+  prm ph3str  0.38818`_0.00638_LIMIT_MAX_0.4 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph3cs;)
+  Strain_L_w_Out(@, =ph3str;, po1_3, po2_3, po3_3)
+
+  site Na1  x 0.5     y 0       z 0.5      occ Na+1  1  beq 1.75  Out_Site
+  site Al1  x 0       y 0       z 0        occ Al+3  1  beq 0.85  Out_Site
+  site Na2  x @  0.26589`_0.00053_LIMIT_MIN_0.2638 min 0.2638 max 0.27 y @  0.45031`_0.00021 min 0.448 max 0.456 z @  0.25220`_0.00038 min 0.2501 max 0.257  occ Na+1  1  beq 1.76  Out_Site
+  site F1   x @  0.11708`_0.00044 min 0.114 max 0.12 y @  0.04450`_0.00029_LIMIT_MIN_0.042 min 0.042 max 0.05 z @  0.21913`_0.00036 min 0.214 max 0.223  occ F-1   1  beq 1.35  Out_Site
+  site F2   x @  0.22729`_0.00059_LIMIT_MAX_0.229 min 0.22 max 0.229 y @  0.73315`_0.00037 min 0.73 max 0.738 z @  0.06239`_0.00031_LIMIT_MAX_0.064 min 0.057 max 0.064  occ F-1   1  beq 1.2  Out_Site
+  site F3   x @  0.31622`_0.00052 min 0.307 max 0.319 y @  0.17128`_0.00037 min 0.166 max 0.18 z @  0.04528`_0.00036 min 0.037 max 0.048  occ F-1   1  beq 1.4  Out_Site
+
+'======== Phase 4 ========
+
+str
+  phase_name Chiolite
+  space_group P4/mnc
+  Tetragonal(@  7.06000`_0.01492_LIMIT_MIN_7.02 min 7.02 max 7.06, @  10.40299`_0.03922_LIMIT_MIN_10.36 min 10.36 max 10.403)
+  scale @  0.0000073506`_0.0000039797_LIMIT_MIN_1e-011
+  r_bragg  2.0229888
+  weight_percent  0.255_0.137
+
+  prm  ph4xxNa  0.27680`_0.00000 min 0.276 max 0.279
+
+  PO(po1_4, 1.00000`_0.31701_LIMIT_MIN_0.93 min 0.93 max 1, !mdangle1_4, 0 0 1)
+  prm !po2_4 1
+  prm !po3_4 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(7, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph4cs  80.47743`_254.45343_LIMIT_MIN_80 min 80 max 350
+  prm ph4str  0.39929`_1.31523_LIMIT_MIN_0.001 min 0.001 max 0.40
+  CS_L_w_Out(@, =ph4cs;)
+  Strain_L_w_Out(@, =ph4str;, po1_4, po2_4, po3_4)
+
+  site Na1  x 0       y 0       z 0.5      occ Na+1  1  beq 1.55  Out_Site
+  site Na2  x 0.277   y 0.777   z 0.25     occ Na+1  1  beq 1.7  Out_Site
+  site Al1  x 0       y 0       z 0        occ Al+3  1  beq 1.4  Out_Site
+  site Al2  x 0       y 0.5     z 0        occ Al+3  1  beq 0.88  Out_Site
+  site F1   x 0       y 0       z @  0.17699`_0.06014_LIMIT_MIN_0.17 min 0.17 max 0.177  occ F-1   1  beq 1.7  Out_Site
+  site F2   x @  0.06395`_0.05613_LIMIT_MIN_0.058 min 0.058 max 0.064 y @  0.25200`_0.04817_LIMIT_MIN_0.245 min 0.245 max 0.252 z 0        occ F-1   1  beq 1.7  Out_Site
+  site F3   x @  0.17600`_0.02488_LIMIT_MIN_0.176 min 0.176 max 0.182 y @  0.53200`_0.04942_LIMIT_MIN_0.532 min 0.532 max 0.54 z @  0.11950`_0.02288_LIMIT_MIN_0.118 min 0.118 max 0.121  occ F-1   1  beq 1.5  Out_Site
+
+'======== Phase 5 ========
+
+str
+  phase_name NaCa(AlF6)
+  space_group P121/c1
+  a @  8.79500`_0.08470_LIMIT_MIN_8.715 min 8.715 max 8.795
+  b @  5.14501`_0.05226_LIMIT_MIN_5.145 min 5.145 max 5.21
+  c @  20.30004`_0.19619_LIMIT_MIN_20.3 min 20.3 max 20.46
+  be @  91.49989`_0.57880_LIMIT_MIN_90.85 min 90.85 max 91.5
+  scale @  0.0000031225`_0.0000013023_LIMIT_MIN_1e-011
+  r_bragg  1.75563744
+  weight_percent  0.338_0.139
+
+  prm !po1_5 1
+  prm !po2_5 1
+  prm !po3_5 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(18, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph5cs  30.04385`_48.71281_LIMIT_MIN_30 min 30 max 150
+  prm ph5str  0.39985`_1.99575_LIMIT_MIN_0.001 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph5cs;)
+  Strain_L_w_Out(@, =ph5str;, po1_5, po2_5, po3_5)
+
+  site Na1  x @  0.96809`_0.24979_LIMIT_MIN_0.9668 min 0.966800 max 0.986800 y @  0.26428`_0.29767_LIMIT_MIN_0.2443 min 0.244300 max 0.264300 z @  0.16887`_0.05992_LIMIT_MIN_0.1681 min 0.168100 max 0.188100  occ Na+1  1  beq 2.2  Out_Site
+  site Na2  x @  0.97802`_0.26275_LIMIT_MIN_0.9581 min 0.958100 max 0.978100 y @  0.28340`_0.24552_LIMIT_MIN_0.2634 min 0.263400 max 0.283400 z @  0.43135`_0.07671_LIMIT_MIN_0.4313 min 0.431300 max 0.451300  occ Na+1  1  beq 2.2  Out_Site
+  site Ca1  x @  0.63030`_0.13918_LIMIT_MIN_0.6303 min 0.630300 max 0.650300 y @  0.24750`_0.15663_LIMIT_MIN_0.2275 min 0.227500 max 0.247500 z @  0.32080`_0.05013_LIMIT_MIN_0.3008 min 0.300800 max 0.320800  occ Ca+2  1  beq 0.85  Out_Site
+  site Ca2  x @  0.62570`_0.14135_LIMIT_MIN_0.6257 min 0.625700 max 0.645700 y @  0.31190`_0.14649_LIMIT_MIN_0.3119 min 0.311900 max 0.331900 z @  0.56981`_0.04650_LIMIT_MIN_0.5523 min 0.552300 max 0.572300  occ Ca+2  1  beq 0.85  Out_Site
+  site Al1  x @  0.24880`_0.16748_LIMIT_MIN_0.2488 min 0.248800 max 0.268800 y @  0.24640`_0.25544_LIMIT_MIN_0.2461 min 0.246100 max 0.266100 z @  0.32884`_0.05019_LIMIT_MIN_0.3089 min 0.308900 max 0.328900  occ Al+3  1  beq 1.67  Out_Site
+  site Al2  x @  0.24280`_0.20324_LIMIT_MIN_0.2428 min 0.242800 max 0.262800 y @  0.18037`_0.22121_LIMIT_MIN_0.1803 min 0.180300 max 0.200300 z @  0.55880`_0.06378_LIMIT_MIN_0.5588 min 0.558800 max 0.578800  occ Al+3  1  beq 1.67  Out_Site
+  site F1   x 0.629   y 0.6261  z 0.4777   occ F-1   1  beq 1.46  Out_Site
+  site F2   x 0.5863  y 0.6137  z 0.6397   occ F-1   1  beq 1.46  Out_Site
+  site F3   x 0.7338  y 0.0827  z 0.4824   occ F-1   1  beq 1.46  Out_Site
+  site F4   x 0.3809  y 0.1003  z 0.2626   occ F-1   1  beq 1.46  Out_Site
+  site F5   x 0.1625  y -0.0247 z 0.6328   occ F-1   1  beq 1.46  Out_Site
+  site F6   x 0.1643  y 0.4377  z 0.3814   occ F-1   1  beq 1.46  Out_Site
+  site F7   x 0.2357  y 0.4669  z 0.6229   occ F-1   1  beq 1.46  Out_Site
+  site F8   x 0.5786  y 0.5944  z 0.8821   occ F-1   1  beq 1.46  Out_Site
+  site F9   x 0.9132  y 0.6404  z 0.226    occ F-1   1  beq 1.46  Out_Site
+  site F10  x 0.7403  y 0.0217  z 0.2307   occ F-1   1  beq 1.46  Out_Site
+  site F11  x 0.7551  y 0.0334  z 0.6259   occ F-1   1  beq 1.46  Out_Site
+  site F12  x 0.0748  y 0.279   z 0.5398   occ F-1   1  beq 1.46  Out_Site
+
+'======== Phase 6 ========
+
+str
+  phase_name Na2Ca3Al2F14
+  space_group I213
+  Cubic(@  10.24200`_125.38892_LIMIT_MIN_10.242 min 10.242 max 10.254)
+  scale @  0.0000000000`_0.0000002765_LIMIT_MIN_1e-011
+  r_bragg  2.90564284
+  weight_percent  0.000_0.041
+
+  PO(po1_6, 0.72003`_18169.93918_LIMIT_MIN_0.72 min 0.72 max 1, !mdangle1_6, 1 1 1)
+  prm !po2_6 1
+  prm !po3_6 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(6, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph6cs  349.93103`_74332499.23609_LIMIT_MIN_65 min 65 max 350
+  prm ph6str  0.00119`_15230.79266_LIMIT_MIN_0.001 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph6cs;)
+  Strain_L_w_Out(@, =ph6str;, po1_6, po2_6, po3_6)
+
+  site Ca1  x 0.4667  y 0       z 0.25     occ Ca+2  1  beq @  0.7008`_382968.7075_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+  site Al1  x 0.2482  y 0.2482  z 0.2482   occ Al+3  1  beq @  0.7004`_544698.3593_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+  site Na1  x 0.0847  y 0.0847  z 0.0847   occ Na+1  1  beq @  1.5000`_1229065.9668_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+  site F1   x 0.1387  y 0.3062  z 0.1206   occ F-1   1  beq @  1.5000`_731187.1562_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+  site F2   x 0.364   y 0.3627  z 0.1873   occ F-1   1  beq @  0.7004`_674275.5087_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+  site F3   x 0.4614  y 0.4614  z 0.4614   occ F-1   1  beq @  1.5000`_1163058.2404_LIMIT_MIN_0.7 min 0.7 max 1.5  Out_Site
+
+'======== Phase 7 ========
+
+str
+  phase_name Fluorite
+  space_group Fm-3m
+  Cubic(@  5.46662`_0.00015 min 5.463 max 5.469)
+  scale @  0.0016397411`_0.0000106314
+  r_bragg  1.10055611
+  weight_percent  6.048_0.043
+
+  prm !po1_7 1
+  prm !po2_7 1
+  prm !po3_7 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph7cs  152.05321`_13.96076 min 60 max 350
+  prm ph7str  0.38000`_0.01695_LIMIT_MAX_0.38 min 0.001 max 0.38
+  CS_L_w_Out(@, =ph7cs;)
+  Strain_L_w_Out(@, =ph7str;, po1_7, po2_7, po3_7)
+
+  site Ca1  x 0       y 0       z 0        occ Ca+2  1  beq 0.57  Out_Site
+  site F1   x 0.25    y 0.25    z 0.25     occ F-1   1  beq 0.81  Out_Site
+
+'======== Phase 8 ========
+
+str
+  phase_name Weberite
+  space_group Imma
+  a @  7.06933`_0.01857_LIMIT_MIN_7.05 min 7.05 max 7.072
+  b @  10.01995`_0.02795_LIMIT_MIN_9.98 min 9.98 max 10.02
+  c @  7.29000`_0.01391_LIMIT_MIN_7.29 min 7.29 max 7.31
+  scale @  0.0000009066`_0.0000012448_LIMIT_MIN_1e-011
+  r_bragg  2.84287629
+  weight_percent  0.031_0.043
+
+  PO(po1_8, 0.90000`_0.69247_LIMIT_MIN_0.9 min 0.9 max 1, !mdangle1_8, 0 1 1)
+  prm !po2_8 1
+  prm !po3_8 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(7, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph8cs  499.99933`_6889.02731_LIMIT_MIN_150 min 150 max 500
+  prm ph8str  0.00109`_0.65523_LIMIT_MIN_0.001 min 0.001 max 0.35
+  CS_L_w_Out(@, =ph8cs;)
+  Strain_L_w_Out(@, =ph8str;, po1_8, po2_8, po3_8)
+
+  site Na1  x 0.25    y 0.25    z 0.75     occ Na+1  1  beq 1  Out_Site
+  site Na2  x 0       y 0       z 0        occ Na+1  1  beq 1  Out_Site
+  site Mg1  x 0.25    y 0.25    z 0.25     occ Mg+2  1  beq 1  Out_Site
+  site Al1  x 0       y 0       z 0.5      occ Al+3  1  beq 1  Out_Site
+  site F1   x 0       y 0.25    z 0.1362   occ F-1   1  beq 1  Out_Site
+  site F2   x 0       y 0.4144  z 0.7213   occ F-1   1  beq 1  Out_Site
+  site F3   x 0.1845  y 0.3874  z 0.4304   occ F-1   1  beq 1  Out_Site
+
+'======== Phase 9 ========
+
+str
+  phase_name Neighborite
+  space_group Pnma
+  a @  5.50000`_0.00339_LIMIT_MIN_5.488 min 5.488 max 5.5
+  b @  7.69000`_0.00500_LIMIT_MIN_7.665 min 7.665 max 7.69
+  c @  5.37966`_0.00263_LIMIT_MIN_5.36 min 5.36 max 5.387
+  scale @  0.0000848919`_0.0000131850
+  r_bragg  2.15988735
+  weight_percent  0.583_0.090
+
+  prm !po1_9 1
+  prm !po2_9 1
+  prm !po3_9 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph9cs  167.56061`_217.36031_LIMIT_MIN_100 min 100 max 350
+  prm ph9str  0.01184`_0.15578_LIMIT_MIN_0.001 min 0.001 max 0.3
+  CS_L_w_Out(@, =ph9cs;)
+  Strain_L_w_Out(@, =ph9str;, po1_9, po2_9, po3_9)
+
+  site Na1  x 0.03975 y 0.25    z 0.488    occ Na+1  1  beq 1.762317  Out_Site
+  site Mg1  x 0       y 0       z 0        occ Mg+2  1  beq 0.7745665  Out_Site
+  site F1   x 0.4547  y 0.25    z 0.58705  occ F-1   1  beq 3.754397  Out_Site
+  site F2   x 0.29105 y 0.04897 z 0.21265  occ F-1   1  beq 1.37148  Out_Site
+
+'======== Phase 10 ========
+
+str
+  phase_name Elpasolite
+  space_group Fm-3m
+  Cubic(@  8.11200`_1194.65038_LIMIT_MIN_8.095 min 8.095 max 8.112)
+  scale @  0.0000000000`_0.0000012854_LIMIT_MIN_1e-011
+  r_bragg  2.40500229
+  weight_percent  0.000_0.048
+
+  prm !po1_10 1
+  prm !po2_10 1
+  prm !po3_10 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph10cs  60.00088`_20467756.63532_LIMIT_MIN_60 min 60 max 200
+  prm ph10str  0.39999`_153092.34020_LIMIT_MIN_0.001 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph10cs;)
+  Strain_L_w_Out(@, =ph10str;, po1_10, po2_10, po3_10)
+
+  site K    x 0.25    y 0.25    z 0.25     occ K     1  beq 1.223831  Out_Site
+  site Na   x 0.5     y 0.5     z 0.5      occ Na    1  beq 0.8448381  Out_Site
+  site Al   x 0       y 0       z 0        occ Al    1  beq 0.5842806  Out_Site
+  site F    x 0.2225  y 0       z 0        occ F     1  beq 1.279101  Out_Site
+
+'======== Phase 11 ========
+
+str
+  phase_name K1.58Al11O17
+  space_group R-3mH
+  Hexagonal(@  5.58500`_0.01154_LIMIT_MIN_5.585 min 5.585 max 5.62, @  33.89000`_0.08263_LIMIT_MIN_33.89 min 33.89 max 34.17)
+  scale @  0.0000029729`_0.0000010810_LIMIT_MIN_1e-011
+  r_bragg  1.24692795
+  weight_percent  0.372_0.133
+
+  prm !po1_11 1
+  prm !po2_11 1
+  prm !po3_11 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(11, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph11cs  45.04196`_59.82152_LIMIT_MIN_45 min 45 max 150
+  prm ph11str  0.34522`_0.82543_LIMIT_MIN_0.001 min 0.001 max 0.37
+  CS_L_w_Out(@, =ph11cs;)
+  Strain_L_w_Out(@, =ph11str;, po1_11, po2_11, po3_11)
+
+  site Al1  x 0.16712 y -0.16712 z 0.9298   occ Al    1  beq 1  Out_Site
+  site Al2  x 0       y 0       z 0.34988  occ Al    1  beq 1  Out_Site
+  site Al3  x 0       y 0       z 0.44935  occ Al    1  beq 1  Out_Site
+  site Al4  x 0       y 0       z 0        occ Al    1  beq 1  Out_Site
+  site O1   x 0.16419 y -0.16419 z 0.23615  occ O     1  beq 1  Out_Site
+  site O2   x 0.15396 y -0.15396 z 0.03384  occ O     1  beq 1  Out_Site
+  site O3   x 0       y 0       z 0.09512  occ O     1  beq 1  Out_Site
+  site O4   x 0       y 0       z 0.2952   occ O     1  beq 1  Out_Site
+  site O5   x 0       y 0       z 0.5      occ O     1  beq 1  Out_Site
+  site K1   x 0       y 0       z -0.17086  occ K     0.31  beq 1  Out_Site
+  site K2   x 0.08717 y -0.08717 z -0.16784  occ K     0.16  beq 1  Out_Site
+
+'======== Phase 12 ========
+
+str
+  phase_name Villiaumite
+  space_group Fm-3m
+  Cubic(@  4.63550`_0.00017 min 4.633 max 4.64)
+  scale @  0.0049577178`_0.0000551373
+  r_bragg  0.750064372
+  weight_percent  5.996_0.066
+
+  prm !po1_12 1
+  prm !po2_12 1
+  prm !po3_12 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph12cs  139.01744`_36.62233_LIMIT_MIN_90 min 90 max 170
+  prm ph12str  0.38000`_0.04292_LIMIT_MAX_0.38 min 0.001 max 0.38
+  CS_L_w_Out(@, =ph12cs;)
+  Strain_L_w_Out(@, =ph12str;, po1_12, po2_12, po3_12)
+
+  site Na   x 0       y 0       z 0        occ Na    1  beq 1  Out_Site
+  site F    x 0.5     y 0.5     z 0.5      occ F     1  beq 1  Out_Site
+
+
+'======= END =======
+'
+'
+C_matrix_normalized
+{
+                             1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115
+bkg1076906880          1:  100 -18 -52  51  27 -21  17  -1 -23   0   0  -5  -8  19  -3  -4  -1 -21  -3  -0  -2  -8   7  12   3  -7   4  -9 -10  -1  -0   9   1  -1   6  -3  10 -32  -2  -1  -1  -9 -17 -16 -12  20  -9  16  -1 -55   0 -10  10 -11  13  -3 -11   0  11  -4  -8  -5   1   0 -13   4 -25   8 -33  -4  -8  28   1  16  -6   1  -3   1  -2   4   1   3  -3  -1  -0  -9  -2   4  -2  -0   1  -1  -1  -3   2   2  -1  -1  -2   4   4   3 -19   2   2  -3 -46  -6   1  17  -5   2  -4  -4  -3
+bkg1076906881          2:  -18 100  10  20   2  32 -14  -2  -6  -2   5   3   1 -13   2  -1  -2  -6   1  -1  -0   3  -3 -10  -9   5   7  -1   3   6  -2  -2   1  -5   3  -7   0   6  -6   8  -6  -1   1  -8   8  -7   4 -15   7  30  -1   7 -11   1 -16  -8 -18  -1 -12  12   4  11   5  -6  -6  -8  12   7  13  -2  23   1  10 -12  33  -0   7 -24 -26  29  14   7  22  -2   5 -12  -3  -6  -8  -3  -0  -1   2   2   2   0   2  -2   1   1  -2  -1   7  -3   5   8  18  -1   1  -6   2  -9  -4  -2  -3
+bkg1076906882          3:  -52  10 100 -42  19  19  22  -2  23   4  -4   5   9 -14   3   1  -1  17   3  -2   0  10  -6  -1   7  -1   0  -1  11  -0  -0  -1  -2   2  -0  -1 -12  38   4  -0   7  18  25  22  14 -17  19  -6   1  44   4   9  -8   6  -9   5  18   2   2  -5  11   5  18  -3  11 -14  32  -6  25   2   5 -37   6  -2   9   0  -2  -7  -6   6  -5  -6   6   9  -5  -4  -1  -1   0  -1  -0  -0   2   2  -1  -2   6   1   3  -4  -6  -4  12  -3  -1   2  35   7  -2 -15   2   0   5   1   1
+bkg1076906883          4:   51  20 -42 100  -4  13   5  -2 -14  -1   3  -2  -2  23  -4  -7  -1  -2  -5  -2  -1  -6   4  21  15  -4  -3 -13 -10  -2  -4  14  -5   4  11  -7   4 -25  -1  -2   2  -5 -11 -19  -3  12  -2  11   2 -46   3  -5   1  -7   9  -5 -22   0   5   3 -13   0  -2   5 -25   2 -21  20 -17  -6  -5  23  -1  23  -8   2  -1   6   4  -0  -5  -1   3  -7  -4  -7  -1   7   2  -3   1  -1  -1  -5  -0  -1   5  -0  -1   1   1   1  -6   4  -5  -7 -30  -7   4  15   2   3  -4  -5  -3
+bkg1076906884          5:   27   2  19  -4 100 -29  34  -5  -7   4  -2   4   2  -4   8  -4  -4 -16  -1  -5  -1   2   1 -13 -16  -1  12  -5   4   6   1  -0  12  -7   6  -6   7  -9  -2   3   2 -16 -15 -17  -8  10  -9  -1  -7   4   7   0  -5   4  -1   2  -2  23  15   3  -5 -11  13 -15  -9  -5  10   9  -2 -11 -13 -18   3  19   8  -2  -4  -9  -9  12  -8   2  -2   8  -1  -3  -4  -8  -9  -3   1  -1  -1   3   2   1   2  -0   0   0  -3  -2 -10   1   4   0  10  -2  -2  -2   1   2  -2  -4  -4
+bkg1076906885          6:  -21  32  19  13 -29 100 -14   1  17   3  -5  -6  -3 -12  -7   1  -2  11   2   2  -3   1  -4  10  13  -9  -6 -11   4  -8  -0   6  -6   8   5  -5  -6  20   2  -2   5  20  21  25  10 -17  18   1   1  11  -3   9  -4   2  -1  -0   4 -19  -8   2   4   7   6  11   4  -7   3  -5   2   9  23   8   4 -24   1   2   3  -2  -4  -4   6  -2  12   4   1  -6   1   3   2   0  -0  -0   1  -0  -0  -0   2  -1   1  -1  -0  -0  16  -6  -2   4   0   5   4  -7  -6  -6   1   0  -1
+bkg1076906886          7:   17 -14  22   5  34 -14 100  -4 -20   3  -2  -3  -8   7  -2   1   2  18  -3  -2  -2   3   3   7  11  -5  -9  -7  -5   3  -8  11   1   6  15   4   4   0   2  -0   8 -14 -10  -6  -5  -2 -10  12 -13 -12   6  -5   4  -7   4   3  24  -9   0 -36  -6  12 -10  10 -11  18  12  10  -6   4   2 -16  20  24 -13   1  -6   7   9 -10 -16  -6  -8  11 -13  -0  -3   9   8  -3  -1  -1   2  -1  -0  -1  -0   2   0  -3   1   1 -17   3   4  -2  -4   4  -6   5   0   5  -0  -0   1
+zeval                  8:   -1  -2  -2  -2  -5   1  -4 100  -4 -11   8   7   6  -1   5  13  13  -1  66  70  57  11 -10   2   3  -2  -6   4 -10  -5  -1  -5  -4   4 -17   1 -18   0  -1   1  -7   2   2   1  -2   4  -1  -8   5  -1  -1  -2   2   3  -3  -3   2  -1  -3   2  -0  -2  -4   0   8   1  -6  -9   2   4  -1  -0  -5  -5  -3   0  -0   3   3  -1  -1  -1  -6  -1  -1   0  68   2   0   2  -1   2   1   1   1   1  -2   2  -0   5  -0  -1  -0  -3   5   5   2   3   1  -3  -3   4  45   1   0
+scale40057128          9:  -23  -6  23 -14  -7  17 -20  -4 100  13 -11  -9  19 -18   3  -1  -8 -10   2  -9   2   5   3  -3  -3  -8  10 -10   4 -21  -4   4   9   8  -2  -0 -10   8   4  -8 -11   5   5   9   9   3  -5   8   6   4   3  12 -10  13  -0  -5   8  29  17  16  -9 -26  18 -15   1 -16   1  -2  18  -5 -11 -14 -24 -14   4   1  12   0   0  -3   1   5   3   2   5   1  -1   1   3   8   1   0   1   4  -3  -1   5   0   1  -0  -5  -4  15  -9  -8  -6 -19  -2  21   5  -5   7   3  -3  -2
+a_lp40185752          10:    0  -2   4  -1   4   3   3 -11  13 100 -67   1   4 -18 -10 -29 -37   4  -4 -11  -6   8   9   1   3  -5   1  -7  -4 -13  -8   6   7  -1  16   3   6  -3   8  -8  -4  -3  -4  -1  -1   5  -1   8   0  -1  -3   7  -5   8   8   9  -2  13   9   6  -6  -6   4  -1   2  -4   2  -7   1  -2   4  -6   4  -0  -2  -0   4   3   4  -2  -9   1  -1  -1  -3   7  -6  -5  -3   5   1  -2   0  -3  -3  -2  -1  -4   4  -0  -1  -1   1   1  -4  -4  -5   2   8  -1  -3   1  -7  -2  -1
+c_lp40056424          11:    0   5  -4   3  -2  -5  -2   8 -11 -67 100  -3  -5  14   7  16  21   1   2   1   9  -4  -5  -1  -1   2  -2  -1   4   4   9  -2   1   1  -8  -7  -3   1  -4   5   6  -2  -2  -7   6   0   1  -4   1   0   6  -9   8 -13  -7  -6  -5 -11  -9  -3   9   7  -5  -4  -3   2   4   6  -3  -2  -3   7   1   1   6  -1  -2  -5  -5   5   5   1   5  -1   2  -6   4   2   0  -3   0   1  -1   1   2   1   2   3  -3  -0  -0   0   2   1   2   3  -0  -3   3   2   2  -7   3  -2  -4
+ph1cs                 12:   -5   3   5  -2   4  -6  -3   7  -9   1  -3 100  93  -2  26 -15 -17   2   1   4   9   2  -3 -16 -16   7  27   0  -2  -4  -2  -1  -0   5  -2  -3  -5  -0  -0   2  -1  -0   0   3  -9  -2  -3  -5  -2  10   2   9 -11  12  -6  -1  -3   7  -4  14  -2   0   2  -4   6  -3  -4  -5   2   1  -6  -6  -9   0  -4  -0   2   6   7  -3  -3  -0  -6  -7  -3   2   6   3   3   5  -1   1   1   5   0   1  -1  -0  -0   0   1   1 -10  -3   4   0   6   5  -4   3   6  -5   5  -2  -3
+ph1str                13:   -8   1   9  -2   2  -3  -8   6  19   4  -5  93 100  -3  28 -17 -21   1   0   1  11   4  -1 -17 -18   4  29  -3  -4  -6  -3   0   0   5  -2  -5  -8  -1   0  -0  -3  -1  -1  -1  -5   1  -3  -3  -0   8   5  12 -14  13  -6  -3  -3  16  -0  17  -8  -7   5  -9   1  -7  -5  -2   5  -4  -9  -7 -14  -2  -4  -0   4   6   8  -5  -4   1  -4  -5  -3   2   5   3   5   6  -0   1   1   6  -1   1   0  -0  -0   0  -1  -1  -7  -4   2  -1  -3   3   3   7   7  -3   4  -4  -5
+scale107847712        14:   19 -13 -14  23  -4 -12   7  -1 -18 -18  14  -2  -3 100 -33 -24   5  -7  -5   1  -3  -4  -3   1  -5   3   3  -4   1  15   2   4  -3   3   4 -10   8  -5  -7  10   8  -8  -7  -5 -11   1  -5   1  -7 -20   0 -10  12  -3   7  -0  -0 -15   0  -4   1   3 -24   5  -6  18   8   2 -28   0   1  16  17   5  -1   3  -5  -1  -0  -1   2   3  -1  -9   4   1  -1  -2  -4  -2   1   1  -2   4   3   1  11   2  -1  -1  -2   0 -24  11  -1 -11 -38 -24 -11  34  22  -3  -2  -3  -3
+a_lp107846832         15:   -3   2   3  -4   8  -7  -2   5   3 -10   7  26  28 -33 100  12   3   5   4   0   8   1   4  -5  -4   1   9   1  -5  -3  -1  -3  -1  -4  -5   3  -6  -5  -1   4   6  -2  -2 -17   4  16   4  -9   3   1  -1  -9   6  -1  -0   4  -6  18   1   5 -10  -1   8 -13  -4  -6 -11   7   1  -8  -9  -7  -9   7  -0  -1  -3   3   4   3  -7  -2  -4  -4  -8   1   3  -2  -1   2   0   0  -1  -1  -0   1  -2   1  -1  -0  -1  -1   2   0   2   2  15  21   5 -28 -33   2   1  -4  -4
+ph2cs                 16:   -4  -1   1  -7  -4   1   1  13  -1 -29  16 -15 -17 -24  12 100  93   1  11   6   6  -0  -8   4   6   3 -11  12  -4   1  -7  -4 -11   4  -8  22  -5  -1  -4   4  -2  -4  -5  -0   8  -1  -8  -4   1   0  -5  -1   3  -1  -1  -1   7   1   2  -9   3  -2   4  -1   9  -0 -11  -8  11   3  -5  -4 -10   1  -3  -1  -2   2   2  -3   1  -7  -1   7  -3  -2   9   1   2   4   1  -1   1   0  -1  -0  -4   0  -1   1   3   2  12  -7   3   7  12  30 -13  -9  -7   7   8   9   8
+ph2str                17:   -1  -2  -1  -1  -4  -2   2  13  -8 -37  21 -17 -21   5   3  93 100  -1  10   8   5  -1 -10   5   5   4 -12  11  -3   4  -8  -3 -13   4  -7  20  -3  -3  -5   6  -0  -6  -7  -2   5  -1  -9  -8  -1  -2  -9  -5   7  -1  -2  -2   4  -3   1  -9   3   1   1   2   7   2  -9  -6   7   2  -2  -2  -4   2  -2  -1  -6   1   1  -2   3  -8  -1   4  -2  -4   9   1   0   3   1  -1  -0   2  -1   0  -1   1  -1   1   2   2   3  -4   3   3   6  29 -18   0   2   6   8   9   9
+scale108792344        18:  -21  -6  17  -2 -16  11  18  -1 -10   4   1   2   1  -7   5   1  -1 100  -8   1   3   7   4   6  30   4 -10   1   5  -3  -1  11 -18  10  11   9  -2  -1   9  -8   4  -5  -5   2  -4  -6  -7   3  -8  -8  -1   1   2  -6   0  -1   6  -8  -5 -19   2  10 -12  17  -3   8  -7   0   1   6   4   2   2   9  -4  -0  -4   2   5 -12  -1  -5  -1   5  -6   8 -10   4   8  -1  -0  -1   0  -2  -0  -1 -43   2  -6  -6  16   5   3   1  -2  -1  -7  13   1   2  -0 -16  -7   2  -1
+a_lp40115224          19:   -3   1   3  -5  -1   2  -3  66   2  -4   2   1   0  -5   4  11  10  -8 100  34  42  31   0   4   3  -2  -2   3 -13  -4  -5  -3  -3   0 -14   4 -19   3  -2   4 -11   0   2   2  -1   1  -0  -9   8   7  -1   1  -1   3  -3  -2   0   1   3   6   0  -8   3   0   9  -3   5 -11   7   2   3  -7   1 -10   2   1   2   0   0   2   1   1  -2  -2  -1  -3  47   2  -0   1   0   1   1   2   1   1   5   1   0   8  -8  -6  -1  -2   8   8   2   3  -2  -3  -3   6  27   7   6
+b_lp40114168          20:   -0  -1  -2  -2  -5   2  -2  70  -9 -11   1   4   1   1   0   6   8   1  34 100  27  12 -19  -0   1  -3  -9   7  -3  -1  -1  -5  -4   5 -11   3  -7   3  -3   3  -1   7   9   5  -4  -0   4  -5   1  -2  -5  -3   4  -1  -3  -2   2  -7  -8  -4   4  10  -3   4   6   2  -7  -2  -3   7   4   4  -4  -1  -3   1  -2   2   3   1  -3  -3  -6  -1  -2  -0  49  -1  -2   0  -2   3  -0  -3   1   1  -2   2  -1   2   1  -0  -2   1   6   6   4  -3   5  -2  -1  -0  30   4   3
+c_lp40116808          21:   -2  -0   0  -1  -1  -3  -2  57   2  -6   9   9  11  -3   8   6   5   3  42  27 100  63  13  -7   0   2  -1   3 -11  -2  -2   2  -3   5 -13   2 -15  -2  -0   1  -8   3   3  -5  -0   8  -0  -4   7  -2   2  -1   3  -2  -1  -1  -4   3   2   4   5  -6  -6  -5   1   6  -8  -3   0   2   1   1  -5  -3  -2   0   1   3   4  -2   1  -1  -2  -3  -2   1  41  -2  -3   8  -1   2  -0   5  -2   0   3  -5   2   8  -4  -3  -5  -3   7   5   0   2  -1   0   0   2  24   1   0
+be_lp40114872         22:   -8   3  10  -6   2   1   3  11   5   8  -4   2   4  -4   1  -0  -1   7  31  12  63 100  -6  -7   5  -2  -0   4  -9  -1 -17   6 -10   7  -2  13  -7   4  -1   4  -1   2   3   0   3   2   0  -1   0   4  -2   1   2  -7   3   5  -4   3   6  -0   6  -3   2  -2  -3   3   2   0   4  -0   6  -7   4  -2   1   1   3   1   1   1   2   1  -0  -3  -0  -3   8  -1  -1   8  -1   0   0   2  -4  -2  -3  -4   1   4  -4  -4  -5   1   6   5   3   1  -2   1   2   4   2  12  10
+po1_3                 23:    7  -3  -6   4   1  -4   3 -10   3   9  -5  -3  -1  -3   4  -8 -10   4   0 -19  13  -6 100  -5  -5  11  13  -1 -11   0   5  29  10   8   0   4  -0  -7   2   2 -13   7   7 -11  -8  14  10   8  15  -5  -6  -2   1  11  -0  -1   1  -2   0  -1   4   0 -12   8   0  11  -7   0 -20   6   3  17   4   4  -2  -1  -4   1   1  -0   2  -2  -2  -1  -2   9  -6  -2  -2   1  -0  -0  -1   1   0   0   6   3  -3   1  -2  -1  -7   4   5   2  -7  -3  -1   3   1 -12 -13 -17 -15
+ph3cs                 24:   12 -10  -1  21 -13  10   7   2  -3   1  -1 -16 -17   1  -5   4   5   6   4  -0  -7  -7  -5 100  92  -5  -5  -2  -1  -5   2   6 -12   5   5   5  -4  -1   1  -4   8   3   1   5   3  -5   2   5  -5  -7   1  -1   3  -9   4   2  -1  -8   5  -5  -6   0   6   1  -1  -2   5  -1   0   3  -4   2   5   8  -3   1  -3   0  -1  -1   3  -2   1   3  -1  -8   4   6   4  -3   1  -2   1  -3   0  -0   4   0   3  -1   7   8   6  -4  -2   1 -12   3   3   3  -3  -2   1   0  -1
+ph3str                25:    3  -9   7  15 -16  13  11   3  -3   3  -1 -16 -18  -5  -4   6   5  30   3   1   0   5  -5  92 100  -8  -8  -3  -2  -5  -0   6 -15   6   4   7  -8   2   3  -6   5   3   2   4   5  -3   2   3  -2  -9   2  -1   3 -10   6   4   1  -7   4  -9  -4   2   2   4   0   0   1  -3   2   6  -4  -0   3  10  -3   0  -3   0  -0  -3   4  -3   1   5  -2  -4   3   8   9  -2   1  -2   1  -2   0  -0 -12  -0   0  -1  11   7   5  -4  -2   1 -11   9   3   2  -4  -2   4   3   2
+x_class108788760      26:   -7   5  -1  -4  -1  -9  -5  -2  -8  -5   2   7   4   3   1   3   4   4  -2  -3   2  -2  11  -5  -8 100  12  70   4  14  -7  -6 -34   8   5  42  27 -16  -8  14   8  -7  -8   2 -22  -4  -5   8 -14  15  -9  -1   0  10 -16 -13   1  10  -4   8   5   4   3 -11   7  -6   5   4   9   3  10  -4   6 -16   2  -1   4   1   1   0  -2   2   8 -10   0  -0  -2  -2  -4  -9  -0   3  -0  -2   5   2  -1  -3   2  -0   1   2   7   2  -2  -0  13  -2  -8   1   8 -19 -17 -13 -14
+y_class108790104      27:    4   7   0  -3  12  -6  -9  -6  10   1  -2  27  29   3   9 -11 -12 -10  -2  -9  -1  -0  13  -5  -8  12 100   7  12  32   7   2   5  -2  -1  -4   8  -0  -9   8  -0  -5  -4  -2 -11  -4   4  -6  -1  15  10   8 -12  14 -12 -10   9  10  -6  10  -8  -3  -4 -15   1  -1  21  -1  -3  -3   3  -8   6  -9   3   0   3  -0   0   3  -2   3  -1  -4   1  -7  -6  -0  -2   0  -1   1   0   7   1   0   7   2  -0  -1  -2   0  -9  -3   9   5 -16  -9  -0  10   1  -8  -4  -5  -7
+z_class108788088      28:   -9  -1  -1 -13  -5 -11  -7   4 -10  -7  -1   0  -3  -4   1  12  11   1   3   7   3   4  -1  -2  -3  70   7 100  13  21  -1 -31 -49  -5 -18  50  25   1   2   2  -0  -1  -1   7  -6  -6  -2   1  -4  11  -1  -0   0   1  -0   4   8   3   4  -6   6  -2  -6  -6   8   8   0  -4  12   7   3 -10   2  -6   1  -1   2   0   1  -0  -3  -0   2  -2   0   0   4  -0  -1  -8   1   3  -0   1   5   2  -7  -3   4  -0   3   2   4   5  -0   1   8   7  -7  -2  -1   3  -2   9   7
+x_class108788984      29:  -10   3  11 -10   4   4  -5 -10   4  -4   4  -2  -4   1  -5  -4  -3   5 -13  -3 -11  -9 -11  -1  -2   4  12  13 100   5  64 -13  24   1   3 -25  28   7  -1   1  -3   5   5  14   1 -13   0   3  -1  14   3  -1   1   1  -1   2  17  -9  -2  -8  17   7   1   4   6   2  14   0   5  11  -0  -8   3  -2   3   0  -1  -5  -6   1   3   4   3   5   3  -3 -11  -0  -1  -6   0   1  -0  -1   2  -0 -10   0   3  -5   4   2   9   3  -6  -3   2  -2  -2  -2  -2  -8  -7   4   1
+y_class108790328      30:   -1   6  -0  -2   6  -8   3  -5 -21 -13   4  -4  -6  15  -3   1   4  -3  -4  -1  -2  -1   0  -5  -5  14  32  21   5 100   4 -13  -6 -17   2   6  22  -0  -8   8   8  -4  -3 -11   3   1   8  -7  -2   3   9   0  -1   2  -3  -3   6  -3  -9  -6  -4   3 -17  -9 -10  14   8   6  -5  -2   8   0   9   1   1   0  -0  -2  -2  -1   0  -1   2   2  -0   4  -2  -4  -1  -2  -1   1   0   2   1  -0   2   1   0  -1  -0   1  -4   4   5   5   6  -8  -8   2   3   3  -2  -1  -1
+z_class108788536      31:   -0  -2  -0  -4   1  -0  -8  -1  -4  -8   9  -2  -3   2  -1  -7  -8  -1  -5  -1  -2 -17   5   2  -0  -7   7  -1  64   4 100 -37  46 -21 -30 -46   8  13  -4   2  -2  11  11  13  10 -11   4   3   5   8   6  -6   4   1   7  11  13 -13  -5  -4   4   4 -10   3  13  10   5  -5  -9   3 -12   8  -4   4   1   0  -3  -4  -6  -0   3   3   2   8   4   7  -1  -1   0 -11  -0   4  -1  -2   4   1  -2   1  -1  -1   2   2   3  11  -4  -3  -3  -4  -0  -4  -4 -20  -6  -2  -5
+x_class108789208      32:    9  -2  -1  14  -0   6  11  -5   4   6  -2  -1   0   4  -3  -4  -3  11  -3  -5   2   6  29   6   6  -6   2 -31 -13 -13 -37 100   3  75  16  11 -17 -15   2  -0   2  -4  -5  -0 -16  -3  -3  12  -8  -5  -7   3  -1  -1  -2  -4  -7 -11   2  -1  12  10   6  15  -4  -1   2   1 -14  14  13  13  13   3  -2   1  -2   1   2  -3   2  -1  -3   0  -3 -10  -6   5   0   4  -1  -2   0  -1  -2  -1   8   2  -3   1  -2  -1  -3  -6   3   2 -10  -3   1   7   4  -7  -5  -8  -8
+y_class108790776      33:    1   1  -2  -5  12  -6   1  -4   9   7   1  -0   0  -3  -1 -11 -13 -18  -3  -4  -3 -10  10 -12 -15 -34   5 -49  24  -6  46   3 100  -5   5 -36   3   4  -6   5  -3   1   1   3   6  -2  -4   4   2   5  -3  -4   2  12   6   7   6 -10  -7   7   4   5  -9   5   9  10   7  -7 -14   3  -3   7  -4  -2   2   0  -1  -4  -5   3   0   3  -1   6   5  11  -1  -3  -0  -1  -1   1  -0   0  -0  -1   6   2  -4   1  -3  -1  -5   3  -0  -2   5 -14   5  -3   1 -12  -2  -4  -4
+z_class108789432      34:   -1  -5   2   4  -7   8   6   4   8  -1   1   5   5   3  -4   4   4  10   0   5   5   7   8   5   6   8  -2  -5   1 -17 -21  75  -5 100 -16  24 -32  -5   1   0  -5  -1  -1  14 -16  -9  -8   8  -6  -2 -10   4  -1   9  -0  -1  -0 -10   1   4   8   6  -4  15  12   6  -4 -12  -9  17   7  10  -1  -2  -2   1   1   3   4  -6   3  -1  -2   0  -4  -3   2   8   5   3  -1   1   0  -1  -0   0   3   1   0   0   0   1  -2  -7  -1  -2  -7   1  -0   4   3  -4   1  -1  -1
+x_class108789656      35:    6   3  -0  11   6   5  15 -17  -2  16  -8  -2  -2   4  -5  -8  -7  11 -14 -11 -13  -2   0   5   4   5  -1 -18   3   2 -30  16   5 -16 100  -1  66 -15  -1   1  24 -11 -12  -7 -10  -0  -5  13 -23  -7  -1   4  -2  -9  -5  -7  -7   3   4  -7  -1   4   8   4 -22  -7   8  21  -1 -10   3  -1  11   9  -2   0  -3   0   0   1  -4  -3   3  -0  -3   7 -12  -7  -5   2   1  -4   1  -4  -4  -3  -1   0   0  -4   1   0   7  -2  -2   1  -0  -8   1   7   6 -11 -15  -5  -6
+y_class108811560      36:   -3  -7  -1  -7  -6  -5   4   1  -0   3  -7  -3  -5 -10   3  22  20   9   4   3   2  13   4   5   7  42  -4  50 -25   6 -46  11 -36  24  -1 100   4 -12   4   1  -1  -9 -10   0 -11   3 -12   8  -7   3 -15  -2   6  11  -2  -1   8   3  10  -2   8  -3  -2   2  11   7  -1 -11   4  11   8  -7   6  -9  -3  -1   2   4   5  -4  -6  -3  -0  -3  -3  -2  -0   1   1   3   0  -1   0   1  -0   0  -9  -2   2   1   3   1   1  -3  -0  -0   6   7  -5   2   3   5  -0   9   9
+z_class108811112      37:   10   0 -12   4   7  -6   4 -18 -10   6  -3  -5  -8   8  -6  -5  -3  -2 -19  -7 -15  -7  -0  -4  -8  27   8  25  28  22   8 -17   3 -32  66   4 100 -13  -3   5  26  -8 -10   2  -7  -8  -8  15 -27  -6  -3  -1   4  -8   1   1   0  -6   5  -7   5  -2  -6   3 -14   8  -2  17  -7  -5   3   6   5  -0  -2  -1  -3  -2  -2  -0  -5  -2   3   5  -0  15  -9 -10  -6  -4   1  -1  -0  -5  -1  -2  -3  -2   1  -2   2   2   7   6  -4  -0  -1  -8  -3   6   4 -16 -19   2  -1
+scale108829536        38:  -32   6  38 -25  -9  20   0   0   8  -3   1  -0  -1  -5  -5  -1  -3  -1   3   3  -2   4  -7  -1   2 -16  -0   1   7  -0  13 -15   4  -5 -15 -12 -13 100   6  -0  10  26  51  44  39 -25  16  -1  10   6  12  11  -3  -8  11  17   4 -19  -3  -1  26   5   6 -15  13  -4  12 -11   5   4  -5 -18 -12   5   3  -1   1  -4  -8   2   7   1   6  11   3  -1   2   3   4 -30  -8   4   6   8  14   2   3   1   1  -2  -3  -3 -14  -3  11   4   6   2  -1  -9  -5  -8  10   9   6
+a_lp108801184         39:   -2  -6   4  -1  -2   2   2  -1   4   8  -4  -0   0  -7  -1  -4  -5   9  -2  -3  -0  -1   2   1   3  -8  -9   2  -1  -8  -4   2  -6   1  -1   4  -3   6 100 -74   3  -5  -1  -2   3   9  -3   6  -2 -14 -10  -1   4  -5   7   5  -0   2   7  -7   3   4  -1  10  -1   1  -8  -0   1   6 -12  -6  -6  12  -4  -5  -6   3   3  -4   3  -7  -0   2  -5   7  -1   1   4 -17  -1   4   1  -1   8   2  -2  -3  -1   6  -2  -3  14   6  -9  -4   2   0  17  -4  -0   6   5   3   4
+c_lp108806112         40:   -1   8  -0  -2   3  -2  -0   1  -8  -8   5   2  -0  10   4   4   6  -8   4   3   1   4   2  -4  -6  14   8   2   1   8   2  -0   5   0   1   1   5  -0 -74 100  -3   5   5   5  -6 -11   3  -7   2  16  -4  -1  -1   7   4   8   1  -4  -4   4   2  -2  -3  -6   5   1  11  -1  -8  -8  13   9  11 -11   3   2   2  -2  -3   5  -2   9  -0  -4   5  -4   1  -3  -5   6   2  -2   1   7  -3  -1   3   1   4  -9   2   4  -8   3   7   4   1   1 -23   2  -1  -8  -5  -2  -3
+po1_4                 41:   -1  -6   7   2   2   5   8  -7 -11  -4   6  -1  -3   8   6  -2  -0   4 -11  -1  -8  -1 -13   8   5   8  -0  -0  -3   8  -2   2  -3  -5  24  -1  26  10   3  -3 100  -7  -3  22   0 -27   9  30 -76 -15   4   2   6 -23  -2  -0  -5 -11   4  -9   6   9  14 -10 -23 -12   6  29   2  -8  -4 -14   8  18 -11  -0  -6   3   3  -8 -12 -16   3  19  -6   2  -5  -1   0 -13  -1   2   1 -17   3  -0  10   3  -1  -5  -5  -3  14  -0  -4   2  10  -1   1  -4  -1  -4   2  -1  -2
+ph4cs                 42:   -9  -1  18  -5 -16  20 -14   2   5  -3  -2  -0  -1  -8  -2  -4  -6  -5   0   7   3   2   7   3   3  -7  -5  -1   5  -4  11  -4   1  -1 -11  -9  -8  26  -5   5  -7 100  93  29  23  -5  36  -5  30   7  -3  -2   2   2   4   8   3  -6  -4   1  16   5   5   0  11  -3  -3  -0  -5   2   2   8 -10  -0   2   0  -6  -2  -4   8   9  -5  -1   1   3  -5   3  -0  -3   7  -0   1  -2  -1   1   3   9  -1   1  -2  -6  -5   6  -1  -1   1  10   5  -3  -7  -1  -9   1   4   3
+ph4str                43:  -17   1  25 -11 -15  21 -10   2   5  -4  -2   0  -1  -7  -2  -5  -7  -5   2   9   3   3   7   1   2  -8  -4  -1   5  -3  11  -5   1  -1 -12 -10 -10  51  -1   5  -3  93 100  31  23  -8  38  -5  29   9  -2   1  -0   3   6  10   3 -10  -6   0  17   8   5  -1  11  -2   2  -2  -5   1   2   3  -8   3   2  -1  -7  -3  -5   8  11  -6  -4   4   2  -5   4   0  -2 -10  -5   3   1   1   7   3  10  -1   1  -3  -7  -6  -2  -2   3   2  10   4  -3  -7  -1 -10   2   4   3
+z_class108809320      44:  -16  -8  22 -19 -17  25  -6   1   9  -1  -7   3  -1  -5 -17  -0  -2   2   2   5  -5   0 -11   5   4   2  -2   7  14 -11  13  -0   3  14  -7   0   2  44  -2   5  22  29  31 100 -12 -61 -11  17 -37   3  -7  10   5  -5   2   4  18 -22  11  -2  30  -1  11   8  27  -6  11 -14   0  17   4  -3 -13 -13  -5   4  -1  -1  -2  -7   3  -4  -3  17   2  -0   2   4   4  -1  -2   2   1  -6  -0  -0  -3  -1   1  -1   2   1  11  -5  -6  -4   1   2  -8 -10  -4 -17  11  10   6
+x_class108810888      45:  -12   8  14  -3  -8  10  -5  -2   9  -1   6  -9  -5 -11   4   8   5  -4  -1  -4  -0   3  -8   3   5 -22 -11  -6   1   3  10 -16   6 -16 -10 -11  -7  39   3  -6   0  23  23 -12 100  -0  -3 -18  24   6   2   4  -1  -8  13  17 -10 -10 -10   5   7   3   6 -25  -4   3 -16   3   9 -15  -8   4 -17  -0   3  -2   4  -5  -9   1   3   4  16   8   6  -7  -1  -0  -0   0   3  -2  -0   0  -2  -2   5   2  -1   0  -4  -3   8   4  -1   3  -1  10   7  -5  -5  -4   3  11   9
+y_class108811784      46:   20  -7 -17  12  10 -17  -2   4   3   5   0  -2   1   1  16  -1  -1  -6   1  -0   8   2  14  -5  -3  -4  -4  -6 -13   1 -11  -3  -2  -9  -0   3  -8 -25   9 -11 -27  -5  -8 -61  -0 100   9  -2  41 -26  -0 -21  19   3   2  -5  -9  30   8   0 -17  -5  -9   0 -11   6 -23  -2  -4   2 -12  -2 -14  10   2  -0  10   6   5   5   5  10  -4 -21   5  11   3  -5  -2  11  -0   0  -1   1   0   5  -4  -1   0   2   0   0 -14   7   1  -5   7  -1  10  -1  -1  22  -6 -10  -4
+x_class108816040      47:   -9   4  19  -2  -9  18 -10  -1  -5  -1   1  -3  -3  -5   4  -8  -9  -7  -0   4  -0   0  10   2   2  -5   4  -2   0   8   4  -3  -4  -8  -5 -12  -8  16  -3   3   9  36  38 -11  -3   9 100   7  21  20   8  13 -19   2  -6   4  -3 -10 -19   5  12  16  10  -8   4 -14  17   4  -0  -0   9  -7  20   9  -1   1  -3   1  -1   4   4  -4   7  -0  -7  -7  -0   2  -1  -1  -3   0   2  -4  -0  -0  10  -1   1  -2  -6  -4  -2  -6   9  10  13  -5   3  -6  -2   2  -4  -4  -3
+y_class108812680      48:   16 -15  -6  11  -1   1  12  -8   8   8  -4  -5  -3   1  -9  -4  -8   3  -9  -5  -4  -1   8   5   3   8  -6   1   3  -7   3  12   4   8  13   8  15  -1   6  -7  30  -5  -5  17 -18  -2   7 100 -30 -19  14   8  -5 -15  -2  -1  12  -0  27 -12  34  -9   5  -0  -4   0  -2   7 -14  22 -16   5   8  21 -11   3  21   9   4 -17  -6  16  19   6   2  16  -5   8  11  -0  -1   0   3  -4   0   0  -0  -2   0   0   0   0  -3   5  -3  -5 -14  -6   1   5  -3   8  -1  -8  -5
+z_class108814920      49:   -1   7   1   2  -7   1 -13   5   6   0   1  -2  -0  -7   3   1  -1  -8   8   1   7   0  15  -5  -2 -14  -1  -4  -1  -2   5  -8   2  -6 -23  -7 -27  10  -2   2 -76  30  29 -37  24  41  21 -30 100  15   2 -11   2  14   3   4  -1  10 -14   7  -2  -2  -9  -0  13   7  -7 -16  -3   1   1  11  -5  -8  12  -1   5  -4  -6  13  13  14   2 -19   7  -7   4   0  -2   5  -0  -1  -1  15   1   1  -1  -2   1   3  -1  -1 -15   1   7   2  -3   1   1   1  -2   2  -6  -2  -1
+scale108900352        50:  -55  30  44 -46   4  11 -12  -1   4  -1   0  10   8 -20   1   0  -2  -8   7  -2  -2   4  -5  -7  -9  15  15  11  14   3   8  -5   5  -2  -7   3  -6   6 -14  16 -15   7   9   3   6 -26  20 -19  15 100  -4  11 -18  15 -32  -5   9  -9 -24  15   7  11  18 -12  26 -14  51 -16  26  -7  34 -13  35 -44  10  -2   2  -7 -10   6   2   6  13   2   1 -22  -5  -3  -9   2   1  -1   1  10  -2  -2   5  -2   2   0  -3  -1   4  -6  11  14  24   1  -5  -7   3 -14  -7   1  -2
+a_lp108802416         51:    0  -1   4   3   7  -3   6  -1   3  -3   6   2   5   0  -1  -5  -9  -1  -1  -5   2  -2  -6   1   2  -9  10  -1   3   9   6  -7  -3 -10  -1 -15  -3  12 -10  -4   4  -3  -2  -7   2  -0   8  14   2  -4 100  18 -29 -34  -6  -7  15   7  -3 -12  -7 -14   7 -21 -26 -14  16  14  15   6 -16 -14  -7  13   5   1  19  -0  -0  -0 -13   7   3   4   9  -8  -8   6   4 -15   3   1   2  18   8   2   2   4  -3  -1  -1  -1   3  -1   9  12  -5 -13   2   1  -6  17   7  -8  -7
+b_lp108802592         52:  -10   7   9  -5   0   9  -5  -2  12   7  -9   9  12 -10  -9  -1  -5   1   1  -3  -1   1  -2  -1  -1  -1   8  -0  -1   0  -6   3  -4   4   4  -2  -1  11  -1  -1   2  -2   1  10   4 -21  13   8 -11  11  18 100 -87   4  -1   6  -4   4  -3   8   5  -9  11 -21 -10 -15   4   1   6  -8   3   2  -1   1  -3  -1  11   2   1 -12   0   7   4   5   5  -4  -4   8   7  -2  -0  -1   4   2  -1  -2   2   1  -1  -1   0   1   7 -13   9  16  -5   1   5   3   5   1   4   6   7
+c_lp108802768         53:   10 -11  -8   1  -5  -4   4   2 -10  -5   8 -11 -14  12   6   3   7   2  -1   4   3   2   1   3   3   0 -12   0   1  -1   4  -1   2  -1  -2   6   4  -3   4  -1   6   2  -0   5  -1  19 -19  -5   2 -18 -29 -87 100 -16   4  -4   8 -11   3 -12   5   6  -8  21   9  12  -9  -4  -8  14  -3  -2  -3  -7  -5  -1 -15  -1  -0  -0   9  -6  -9  -1   2   4   5  -8  -7   5  -1   2  -4  -3   0   3  -5  -1   1   1   2   1  -7   7  -9 -16   4  -1  -4  -3  -4  -3  -1  -3  -5
+be_lp108803648        54:  -11   1   6  -7   4   2  -7   3  13   8 -13  12  13  -3  -1  -1  -1  -6   3  -1  -2  -7  11  -9 -10  10  14   1   1   2   1  -1  12   9  -9  11  -8  -8  -5   7 -23   2   3  -5  -8   3   2 -15  14  15 -34   4 -16 100   2  -1  -1  15   5  31 -17  -4 -10   1  20   7  -1 -21  -6  -5   9   0  -3  -7  -2   3  -1   4   7  -6  -5  -2  -4  -4 -10  10   7  -3  -1   8  -2  -0   1  -2  -4  -2  -3   0   2  -2   2   2  -9   1 -10 -18   6   7  -2  -2   6  -4  -3   2   3
+ph5cs                 55:   13 -16  -9   9  -1  -1   4  -3  -0   8  -7  -6  -6   7  -0  -1  -2   0  -3  -3  -1   3  -0   4   6 -16 -12  -0  -1  -3   7  -2   6  -0  -5  -2   1  11   7   4  -2   4   6   2  13   2  -6  -2   3 -32  -6  -1   4   2 100  91  -1  -3  21  -6  -8 -13 -23  16   8  25 -13 -20 -11  -6 -19   3  -9  23  -8  -1  -3   3   7 -17   0   4 -19  -1  12  20   4  -7  -2 -15   2  -0  -2  -7   4  -1  -1   2   1  -2   1   1   1  18 -10 -11 -10   2  -4   2  -3   6   4   7   8
+ph5str                56:   -3  -8   5  -5   2  -0   3  -3  -5   9  -6  -1  -3  -0   4  -1  -2  -1  -2  -2  -1   5  -1   2   4 -13 -10   4   2  -3  11  -4   7  -1  -7  -1   1  17   5   8  -0   8  10   4  17  -5   4  -1   4  -5  -7   6  -4  -1  91 100  -4  -4  20  -1  -1 -11 -20  10  17  25  -9 -25 -10  -5 -14   1   1  20  -4  -3  -3   2   6 -10  -4   4 -13  -2   5  19   3  -9  -4 -15   2  -1  -2  -7   4  -2  -0   2   1  -3  -0  -0   2  19  -8  -7  -1   5  -6  -2  -3   4   4   9   9
+x_class108812904      57:  -11 -18  18 -22  -2   4  24   2   8  -2  -5  -3  -3  -0  -6   7   4   6   0   2  -4  -4   1  -1   1   1   9   8  17   6  13  -7   6  -0  -7   8   0   4  -0   1  -5   3   3  18 -10  -9  -3  12  -1   9  15  -4   8  -1  -1  -4 100 -10 -23 -71   1  17 -13   6  22   9  19 -10  11  21  -9 -24   2  -8 -20   2  -2   9   7 -20  -6   0 -14  18   7  -9   1   7   5  -5   0   2   1   1   1  -0  -2   4   1  -4   2   2   7   3  -1   2   6   4  -7  -4  -5   7   4  -3  -1
+y_class108809544      58:    0  -1   2   0  23 -19  -9  -1  29  13 -11   7  16 -15  18   1  -3  -8   1  -7   3   3  -2  -8  -7  10  10   3  -9  -3 -13 -11 -10 -10   3   3  -6 -19   2  -4 -11  -6 -10 -22 -10  30 -10  -0  10  -9   7   4 -11  15  -3  -4 -10 100  36  16 -21 -36  17 -38 -15 -20 -14  11  17 -28 -13 -25 -11  11   3  -1  11   7   7   8  -7   3   0 -17  -2  -0  -3  -3  -5   9   3  -0  -2  -0  -2   1   6  -1   3  -2  -7  -5   3  -1  -8 -11  12   7   4  -1   3  13  -1  -9  -7
+z_class108813128      59:   11 -12   2   5  15  -8   0  -3  17   9  -9  -4  -0   0   1   2   1  -5   3  -8   2   6   0   5   4  -4  -6   4  -2  -9  -5   2  -7   1   4  10   5  -3   7  -4   4  -4  -6  11 -10   8 -19  27 -14 -24  -3  -3   3   5  21  20 -23  36 100  17  15 -74  -1   1 -14  16  -4   3 -12  -6  -9  -6   9  14   9   1   1  -2  -0  14 -10  -8   4  -1 -12  16  -0   1   4  -0   1   1  -1  -9   1   1   3  -3   3   1  -5  -4   1  11 -18 -22  -5   3  -3   3  -0  13   5   0   2
+x_class108815592      60:   -4  12  -5   3   3   2 -36   2  16   6  -3  14  17  -4   5  -9  -9 -19   6  -4   4  -0  -1  -5  -9   8  10  -6  -8  -6  -4  -1   7   4  -7  -2  -7  -1  -7   4  -9   1   0  -2   5   0   5 -12   7  15 -12   8 -12  31  -6  -1 -71  16  17 100  -8 -31  19 -19   9 -20  -4 -15   1 -10   2   4 -10 -21  17  -0   9  -6  -4  12   6   4  12 -15  -4   9   4  -8  -5  11  -0  -1  -0   8  -2   1  -1  -1  -1   3  -1  -1  -9 -13   0  -6  -5  -7   6  -1   2  -6   1   2   0
+y_class108813352      61:   -8   4  11 -13  -5   4  -6  -0  -9  -6   9  -2  -8   1 -10   3   3   2   0   4   5   6   4  -6  -4   5  -8   6  17  -4   4  12   4   8  -1   8   5  26   3   2   6  16  17  30   7 -17  12  34  -2   7  -7   5   5 -17  -8  -1   1 -21  15  -8 100   5   8 -10  10   1   5  -0  -4  37  16  -3  18  -9  -1  -2   4  -1  -4  -2   8  12   7  -1   4 -10  -2   6   1   3  -1   1  -0   1  -0   1   1  -4   2   2  -2  -2  -1  -7   3   2   8  -2  -8  -2   2 -16   1   0  -3
+z_class108814024      62:   -5  11   5   0 -11   7  12  -2 -26  -6   7   0  -7   3  -1  -2   1  10  -8  10  -6  -3   0   0   2   4  -3  -2   7   3   4  10   5   6   4  -3  -2   5   4  -2   9   5   8  -1   3  -5  16  -9  -2  11 -14  -9   6  -4 -13 -11  17 -36 -74 -31   5 100   5  17  12  -7   8   3   2  16  19   5   6  16  -1   2  -4  -1  -2  -0   5   5  -5  -2   7 -12  -2  -2  -5   1  -2  -1   1   0  -1  -0   3   1  -1  -2   2   2  -1  -5   9  11  11  -0   2  -6  -0 -18  -7  -0  -2
+x_class108815816      63:    1   5  18  -2  13   6 -10  -4  18   4  -5   2   5 -24   8   4   1 -12   3  -3  -6   2 -12   6   2   3  -4  -6   1 -17 -10   6  -9  -4   8  -2  -6   6  -1  -3  14   5   5  11   6  -9  10   5  -9  18   7  11  -8 -10 -23 -20 -13  17  -1  19   8   5 100 -23  -2 -88  15  12  32 -13  -6 -27  -3  -2  -3   1   0   0  -4   3   2   5   7   1  -1 -36 -10   4  -6   4   1  -2   2   3  -2  -1   5  -1   1   2  -3  -3  14 -18   3   8  15   8   2  -8  -1  -2  -1  -3  -4
+y_class108809768      64:    0  -6  -3   5 -15  11  10   0 -15  -1  -4  -4  -9   5 -13  -1   2  17   0   4  -5  -2   8   1   4 -11 -15  -6   4  -9   3  15   5  15   4   2   3 -15  10  -6 -10   0  -1   8 -25   0  -8  -0  -0 -12 -21 -21  21   1  16  10   6 -38   1 -19 -10  17 -23 100   1  25   0  -5 -16  21   1  17   5  18  -0   4 -11  -4  -2  -2   8  -7 -11   8   3  23   5   0   8  -3  -0  -0  -1 -10  -0  -0  -4  -0  -1   1   3   3   3  13  -7  -6   4  -3  -5  -4  -1  -1  -1   3   4
+z_class108814248      65:  -13  -6  11 -25  -9   4 -11   8   1   2  -3   6   1  -6  -4   9   7  -3   9   6   1  -3   0  -1   0   7   1   8   6 -10  13  -4   9  12 -22  11 -14  13  -1   5 -23  11  11  27  -4 -11   4  -4  13  26 -26 -10   9  20   8  17  22 -15 -14   9  10  12  -2   1 100  -5  12 -86  10  12  -7 -10  -5 -21   3  -1   2   1   2  -5  11   1  10  -6  -9  12  11  -6  -1   8  -1  -0   1   2  -2   1 -13   0  -0   2   7   4  -9  -6   6   3  -2   6  -8  -4  -2  -8   4   5   3
+x_class108817160      66:    4  -8 -14   2  -5  -7  18   1 -16  -4   2  -3  -7  18  -6  -0   2   8  -3   2   6   3  11  -2   0  -6  -1   8   2  14  10  -1  10   6  -7   7   8  -4   1   1 -12  -3  -2  -6   3   6 -14   0   7 -14 -14 -15  12   7  25  25   9 -20  16 -20   1  -7 -88  25  -5 100 -19  -5 -36   8  12  25   5   4   2  -0  -1  -0   3  -0  -5  -6  -8   2   1  30   7  -4   4  -1  -2   1  -1   0   1   0  -2  -1   0   0   1   1 -25  18  -1 -10 -12  -2  -3   7   0   1  -0   5   6
+y_class108816712      67:  -25  12  32 -21  10   3  12  -6   1   2   4  -4  -5   8 -11 -11  -9  -7   5  -7  -8   2  -7   5   1   5  21   0  14   8   5   2   7  -4   8  -1  -2  12  -8  11   6  -3   2  11 -16 -23  17  -2  -7  51  16   4  -9  -1 -13  -9  19 -14  -4  -4   5   8  15   0  12 -19 100 -12  20 -13  17 -33  55 -12  12   3  -2 -11 -11  11  -3   4   7   2   2 -20 -10  -2  -8  -6   0   0   2   4   2  -1  13   1   3  -3  -4  -1   5  -2   4   4   2 -19  -4   1  -1 -12  -5  -5  -8
+z_class108816488      68:    8   7  -6  20   9  -5  10  -9  -2  -7   6  -5  -2   2   7  -8  -6   0 -11  -2  -3   0   0  -1  -3   4  -1  -4   0   6  -5   1  -7 -12  21 -11  17 -11  -0  -1  29  -0  -2 -14   3  -2   4   7 -16 -16  14   1  -4 -21 -20 -25 -10  11   3 -15  -0   3  12  -5 -86  -5 -12 100 -14 -12  -1  12   1  18  -5   1 -11  -2  -4   8 -12  -5  -7  11   2 -16 -13   7  -0 -12   2  -0  -1 -11  -0  -3  13  -1   1  -3  -8  -5  24   7 -10  -2  10  -2   7  -2   1  -3  -8  -5  -6
+x_class108816936      69:  -33  13  25 -17  -2   2  -6   2  18   1  -3   2   5 -28   1  11   7   1   7  -3   0   4 -20   0   2   9  -3  12   5  -5  -9 -14 -14  -9  -1   4  -7   5   1  -8   2  -5  -5   0   9  -4  -0 -14  -3  26  15   6  -8  -6 -11 -10  11  17 -12   1  -4   2  32 -16  10 -36  20 -14 100  -4  -2 -76 -12  -8  -0  -2   4   1  -1  -1   9  -8   7   4   3 -14   6   2   1   9   2  -2   3  11  -2   1  -3   2   2  -0   1   0  10 -15   1   3  30   4   1 -12  -3  17  11   2   3
+y_class108916056      70:   -4  -2   2  -6 -11   9   4   4  -5  -2  -2   1  -4   0  -8   3   2   6   2   7   2  -0   6   3   6   3  -3   7  11  -2   3  14   3  17 -10  11  -5   4   6  -8  -8   2   1  17 -15   2  -0  22   1  -7   6  -8  14  -5  -6  -5  21 -28  -6 -10  37  16 -13  21  12   8 -13 -12  -4 100  17  -2   4 -11  -4   1  11   4   4 -12   5   6  -7   5   6   5   9   7  10   6  -1   1   0   4   1   3  -7  -0   1   1   5   4  -6  -6   5   2   5  -2  -4  -5  -2   9   8   2   3
+z_class108917848      71:   -8  23   5  -5 -13  23   2  -1 -11   4  -3  -6  -9   1  -9  -5  -2   4   3   4   1   6   3  -4  -4  10   3   3  -0   8 -12  13  -3   7   3   8   3  -5 -12  13  -4   2   2   4  -8 -12   9 -16   1  34 -16   3  -3   9 -19 -14  -9 -13  -9   2  16  19  -6   1  -7  12  17  -1  -2  17 100  12  54 -53  10   2   6  -6  -5   7  -7  -2  13  -2 -10 -25  -4   5  -4  13  -2  -1   1   9  -4  -0   5  -6   3   2  -3  -2 -22 -11  15   8  -4  -2  -3   5   3 -11  -6   2   0
+x_class108917400      72:   28   1 -37  23 -18   8 -16  -0 -14  -6   7  -6  -7  16  -7  -4  -2   2  -7   4   1  -7  17   2  -0  -4  -8 -10  -8   0   8  13   7  10  -1  -7   6 -18  -6   9 -14   8   3  -3   4  -2  -7   5  11 -13 -14   2  -2   0   3   1 -24 -25  -6   4  -3   5 -27  17 -10  25 -33  12 -76  -2  12 100  -1  -5   2   2   1  -3  -3  -2   1   8   0  -2   3   7  -5  -1  -0 -12  -1   1  -1 -10   2  -2  -2  -3  -4   3   2   2   9  12  -5   1 -34  -2   2  14   3 -20 -14  -1  -3
+y_class108922104      73:    1  10   6  -1   3   4  20  -5 -24   4   1  -9 -14  17  -9 -10  -4   2   1  -4  -5   4   4   5   3   6   6   2   3   9  -4  13  -4  -1  11   6   5 -12  -6  11   8 -10  -8 -13 -17 -14  20   8  -5  35  -7  -1  -3  -3  -9   1   2 -11   9 -10  18   6  -3   5  -5   5  55   1 -12   4  54  -1 100 -18   4   2  -6  -5  -5   5  -0   2   9  -3  -5 -17  -9   0  -7  -2   0  -1  -0  -1  -0  -1  16  -2   3  -1  -7  -3 -12   1   8   5 -13 -11  -5  12   3 -12 -10  -5  -7
+z_class108919192      74:   16 -12  -2  23  19 -24  24  -5 -14  -0   1   0  -2   5   7   1   2   9 -10  -1  -3  -2   4   8  10 -16  -9  -6  -2   1   4   3  -2  -2   9  -9  -0   5  12 -11  18  -0   3 -13  -0  10   9  21  -8 -44  13   1  -7  -7  23  20  -8  11  14 -21  -9  16  -2  18 -21   4 -12  18  -8 -11 -53  -5 -18 100  -5   1 -13   2   4   3  -2 -11 -13   4  -2  24  -1  -4   3 -16  -0  -1  -0 -12   3  -1   4   4  -1  -4  -1  -0   5   8 -11 -10   8   2   1  -3   0   9   2  -3  -1
+scale108974784        75:   -6  33   9  -8   8   1 -13  -3   4  -2   6  -4  -4  -1  -0  -3  -2  -4   2  -3  -2   1  -2  -3  -3   2   3   1   3   1   1  -2   2  -2  -2  -3  -2   3  -4   3 -11   2   2  -5   3   2  -1 -11  12  10   5  -3  -5  -2  -8  -4 -20   3   9  17  -1  -1  -3  -0   3   2  12  -5  -0  -4  10   2   4  -5 100   2  38 -66 -59  66  29  29  37 -18  26   0  -2  -0  -0  -2   1  -1   0  11   4   2   3  -1  -0   1  -3  -2   2   0   3   3   4  -7   4 -10  -7  -5  -2   1  -1
+a_lp108937448         76:    1  -0   0   2  -2   2   1   0   1  -0  -1  -0  -0   3  -1  -1  -1  -0   1   1   0   1  -1   1   0  -1   0  -1   0   0   0   1   0   1   0  -1  -1  -1  -5   2  -0   0  -1   4  -2  -0   1   3  -1  -2   1  -1  -1   3  -1  -3   2  -1   1  -0  -2   2   1   4  -1  -0   3   1  -2   1   2   2   2   1   2 100   8  -3  -4   2   2   4  -1  -0   0   1   1   0   0   8   2  -3   3 -10   3   6   1  -1   0  -1   2   3  -2   2  -1  -3  -1  -1   0  -1  -1  -1   0   0   0
+po1_6                 77:   -3   7  -2  -1  -4   3  -6  -0  12   4  -2   2   4  -5  -3  -2  -6  -4   2  -2   1   3  -4  -3  -3   4   3   2  -1  -0  -3  -2  -1   1  -3   2  -3   1  -6   2  -6  -6  -7  -1   4  10  -3  21   5   2  19  11 -15  -1  -3  -3  -2  11   1   9   4  -4   0 -11   2  -1  -2 -11   4  11   6   1  -6 -13  38   8 100  -1  -5   4   6  63   9 -33  45   0  -0   4   2  16  -7   5  11 -10  -4   2  -1  -0  -1   1   2   2  -3  -1   4   4  -4  -5   3  -1  -3   3   0  -1  -1
+ph6cs                 78:    1 -24  -7   6  -9  -2   7   3   0   3  -5   6   6  -1   3   2   1   2   0   2   3   1   1   0   0   1  -0   0  -5  -2  -4   1  -4   3   0   4  -2  -4   3  -2   3  -2  -3  -1  -5   6   1   9  -4  -7  -0   2  -1   4   3   2   9   7  -2  -6  -1  -1   0  -4   1  -0 -11  -2   1   4  -6  -3  -5   2 -66  -3  -1 100  94 -45 -22 -13 -25 -14 -14   1   2  -0  -1   7  -1   2  -5  -8  -4   0  -3  -1  -0  -1   1   0  -5  -0  -1  -3  -1   5  -2   6   5   5   1  -1  -0
+ph6str                79:   -2 -26  -6   4  -9  -4   9   3   0   4  -5   7   8  -0   4   2   1   5   0   3   4   1   1  -1  -0   1   0   1  -6  -2  -6   2  -5   4   0   5  -2  -8   3  -3   3  -4  -5  -2  -9   5  -1   4  -6 -10  -0   1  -0   7   7   6   7   7  -0  -4  -4  -2  -4  -2   2   3 -11  -4  -1   4  -5  -3  -5   4 -59  -4  -5  94 100 -47 -27 -19 -30 -16 -17   2   2  -2  -2   6  -1   3  -6  -5  -2   1  -3  -1  -0  -1   1  -0  -6   1  -2  -4  -1   6  -2   5   4   6   1  -2  -0
+beq108936744          80:    4  29   6  -0  12  -4 -10  -1  -3  -2   5  -3  -5  -1   3  -3  -2 -12   2   1  -2   1  -0  -1  -3   0   3  -0   1  -1  -0  -3   3  -6   1  -4  -0   2  -4   5  -8   8   8  -7   1   5   4 -17  13   6  -0 -12  -0  -6 -17 -10 -20   8  14  12  -2  -0   3  -2  -5  -0  11   8  -1 -12   7  -2   5   3  66   2   4 -45 -47 100   3 -10  20 -21   8  -3  -1   2   1   1  -1  -0   2  -1   1   1   6  -1   0   1  -6  -5   2   2  -2  -1  10 -10   5  -7  -3  -3  -1  -1  -1
+beq108938328          81:    1  14  -5  -5  -8   6 -16  -1   1  -9   5  -3  -4   2  -7   1   3  -1   1  -3   1   2   2   3   4  -2  -2  -3   3   0   3   2   0   3  -4  -6  -5   7   3  -2 -12   9  11   3   3   5   4  -6  13   2 -13   0   9  -5   0  -4  -6  -7 -10   6   8   5   2   8  11  -5  -3 -12   9   5  -7   1  -0  -2  29   2   6 -22 -27   3 100  16  22 -13  22  -0   1  -4  -3   6  -3   1   2   0  -1   2  -1   0  -2   2   4   4  -1  -7   3   3   0  -5   2  -1   1 -11  -2   4   1
+beq108939208          82:    3   7  -6  -1   2  -2  -6  -1   5   1   1  -0   1   3  -2  -7  -8  -5   1  -3  -1   1  -2  -2  -3   2   3  -0   4  -1   3  -1   3  -1  -3  -3  -2   1  -7   9 -16  -5  -6  -4   4  10  -4  16  14   6   7   7  -6  -2   4   4   0   3  -8   4  12   5   5  -7   1  -6   4  -5  -8   6  -2   8   2 -11  29   4  63 -13 -19 -10  16 100  -2 -27  43   0  -0  -2  -3   7  -1   1   4  -1  -1   1   0  -1   1   1   4   5   1   1   5   8 -11  -3  -0  -1  -5  -6  -4  -0  -2
+beq108942728          83:   -3  22   6   3  -2  12  -8  -6   3  -1   5  -6  -4  -1  -4  -1  -1  -1  -2  -6  -2  -0  -2   1   1   8  -1   2   3   2   2  -3  -1  -2   3  -0   3   6  -0  -0   3  -1  -4  -3  16  -4   7  19   2  13   3   4  -9  -4 -19 -13 -14   0   4  12   7  -5   7 -11  10  -8   7  -7   7  -7  13   0   9 -13  37  -1   9 -25 -30  20  22  -2 100 -23 -25  -2  -6   5   4  -1   5  -4  -3  13   1  -1  -1  -3   1   1  -1  -1   0  -4   6   7  -3  -3   2   2   1  -2  -3   0   0
+beq108944136          84:   -1  -2   9  -7   8   4  11  -1   2  -1  -1  -7  -5  -9  -4   7   4   5  -2  -1  -3  -3  -1   3   5 -10  -4  -2   5   2   8   0   6   0  -0  -3   5  11   2  -4  19   1   4  17   8 -21  -0   6 -19   2   4   5  -1  -4  -1  -2  18 -17  -1 -15  -1  -2   1   8  -6   2   2  11   4   5  -2  -2  -3   4 -18  -0 -33 -14 -16 -21 -13 -27 -23 100 -21  -0   1   6   7 -10   0  -0   5  -5   1  -3  -1   1  -0   0  -2  -3   7   2  -2   1  -1  10  -1  -6  -4   4   6   3   4
+beq108942552          85:   -0   5  -5  -4  -1   1 -13  -1   5  -3   2  -3  -3   4  -8  -3  -2  -6  -1  -2  -2  -0  -2  -1  -2   0   1   0   3  -0   4  -3   5  -4  -3  -3  -0   3  -5   5  -6   3   2   2   6   5  -7   2   7   1   9   5   2 -10  12   5   7  -2 -12  -4   4   7  -1   3  -9   1   2   2   3   6 -10   3  -5  -2  26   0  45 -14 -17   8  22  43 -25 -21 100  -4  -1  -0  -3  -6   2  -0  -2   8   5   2   4   2  -3   2   1   3   5   1   2   5   2 -13   5  -3  -3  -5  -2  -3  -4
+scale109021096        86:   -9 -12  -4  -7  -3  -6  -0   0   1   7  -6   2   2   1   1  -2  -4   8  -3  -0   1  -3   9  -8  -4  -0  -7   0  -3   4   7 -10  11  -3   7  -2  15  -1   7  -4   2  -5  -5  -0  -7  11  -7  16  -7 -22  -8  -4   4  10  20  19  -9  -0  16   9 -10 -12 -36  23  12  30 -20 -16 -14   5 -25   7 -17  24   0   1   0   1   2  -3  -0   0  -2  -0  -4 100  10   0  26   0  -1   1  -0  -6  -0   0 -20   2  -2  -1   9   5  -1  10  -5  -7   4  -1   1  -3  -0  -0  -2   1   2
+a_lp108944312         87:   -2  -3  -1  -1  -4   1  -3  68  -1  -6   4   6   5  -1   3   9   9 -10  47  49  41   8  -6   4   3  -2  -6   4 -11  -2  -1  -6  -1   2 -12  -0  -9   2  -1   1  -5   3   4   2  -1   3  -0  -5   4  -5  -8  -4   5   7   4   3   1  -3  -0   4  -2  -2 -10   5  11   7 -10 -13   6   9  -4  -5  -9  -1  -2   1  -0   2   2  -1   1  -0  -6   1  -1  10 100  -2   1   3  -0   1   1  -2  -0   1  15   3   2   6  -6  -4  -3  -1   5   5   3   2   1  -3  -2   6  35  -3  -3
+ph7cs                 88:    4  -6  -1   7  -8   3   9   2   1  -5   2   3   3  -2  -2   1   1   4   2  -1  -2  -1  -2   6   8  -2  -0  -0  -0  -4  -1   5  -3   8  -7   1 -10   3   1  -3  -1  -0   0   4  -0  -5   2   8   0  -3   6   8  -8  -3  -7  -9   7  -3   1  -8   6  -2   4   0  -6  -4  -2   7   2   7   5  -1   0  -4  -0   0   4  -0  -2   2  -4  -2   5   6  -0   0  -2 100  92   0  -1   1   1   2   1   1  -7   1  -0   2   4   3  -2  -4   2   2  -6   2   0   3   0   6   8   3   5
+ph7str                89:   -2  -8   0   2  -9   2   8   0   3  -3   0   3   5  -4  -1   2   0   8  -0  -2  -3  -1  -2   4   9  -4  -2  -1  -1  -1   0   0  -0   5  -5   1  -6   4   4  -5   0  -3  -2   4  -0  -2  -1  11  -2  -9   4   7  -7  -1  -2  -4   5  -5   4  -5   1  -5  -6   8  -1   4  -8  -0   1  10  -4  -0  -7   3  -0   0   2  -1  -2   1  -3  -3   4   7  -3  26   1  92 100   1  -2   1   1   1   0   1 -15   3  -1   3   7   6  -2  -2   1   0  -3   3   1   1   0   9  10   5   8
+scale109052648        90:   -0  -3  -1  -3  -3   0  -3   2   8   5  -3   5   6  -2   2   4   3  -1   1   0   8   8   1  -3  -2  -9   0  -8  -6  -2 -11   4  -1   3   2   3  -4 -30 -17   6 -13   7 -10  -1   0  11  -1  -0   5   2 -15  -2   5   8 -15 -15  -5   9  -0  11   3   1   4  -3   8  -1  -6 -12   9   6  13 -12  -2 -16  -2   8  16   7   6   1   6   7  -1 -10  -6   0   3   0   1 100   3  -6  -0  15 -40  -2  -4  -4   1   2   2   2 -25 -26   5  -6   3   5   0   2   4   2   5   8   7
+a_lp109040208         91:    1  -0  -0   1   1  -0  -1  -1   1   1   0  -1  -0   1   0   1   1  -0   0  -2  -1  -1  -0   1   1  -0  -1   1   0  -1  -0  -1  -1  -1   1   0   1  -8  -1   2  -1  -0  -5  -2   3  -0  -3  -1  -0   1   3  -0  -1  -2   2   2   0   3   1  -0  -1  -2   1  -0  -1  -2   0   2   2  -1  -2  -1   0  -0   1   2  -7  -1  -1  -1  -3  -1   5   0   2  -1  -0  -1  -2   3 100 -49  -5   8  -0   1   1  -2   2  -0  -0   0   4   5   3   3   0   1  -1  -1  -2   2   0  -0  -0
+b_lp109041792         92:   -1  -1  -0  -1  -1  -0  -1   2   0  -2   1   1   1   1   0  -1  -1  -1   1   3   2   0  -0  -2  -2   3   1   3   1   1   4  -2   1   1  -4  -1  -1   4   4  -2   2   1   3   2  -2   0   0   0  -1  -1   1  -1   2  -0  -0  -1   2  -0   1  -1   1  -1  -2  -0  -0   1   0  -0  -2   1  -1   1  -1  -1  -1  -3   5   2   3  -0   1   1  -4  -0  -0   1   1   1   1  -6 -49 100 -43  -6  15  12   2   1   1  -1  -2  -2   1   3   0   1   1  -3   2   0   1  -1   1  -2  -2
+c_lp109042144         93:   -1   2   2  -1  -1   1   2   1   1   0  -1   1   1  -2  -1   1  -0   0   1  -0  -0   0  -1   1   1  -0   0  -0  -0   0  -1   0  -0   0   1   0  -0   6   1   1   1  -2   1   1  -0  -1   2   3  -1   1   2   4  -4   1  -2  -2   1  -2  -1  -0  -0   1   2  -1   1  -1   2  -1   3   0   1  -1  -0  -0   0   3  11  -5  -6   2   2   4  -3   5  -2  -0   1   1   1  -0  -5 -43 100  -7   1   2  -1  -1  -1   1   1   1  -1  -2  -0  -0  -1   1  -1   0  -0   0   1   1   1
+po1_8                 94:   -3   2   2  -5   3  -0  -1   1   4  -3   1   5   6   4  -1   0   2  -2   2  -3   5   2   1  -3  -2  -2   7   1  -1   2  -2  -1   0  -1  -4   1  -5   8  -1   7 -17  -1   1  -6   0   1  -4  -4  15  10  18   2  -3  -2  -7  -7   1  -0  -9   8   1   0   3 -10   2   0   4 -11  11   4   9 -10  -1 -12  11 -10 -10  -8  -5  -1   0  -1  13  -5   8  -6  -2   2   1  15   8  -6  -7 100  12  10  -5  -4  -1   4   2   0 -36 -25  17   2  -4  -3  -1   2  -0   3   5   1   1
+ph8cs                 95:    2   2  -1  -0   2  -0  -0   1  -3  -3   2   0  -1   3  -0  -1  -1  -0   1   1  -2  -4   0   0   0   5   1   5   2   1   4  -2  -0  -0  -4  -0  -1  14   8  -3   3   1   7  -0  -2   0  -0   0   1  -2   8  -1   0  -4   4   4   1  -2   1  -2  -0  -1  -2  -0  -2   1   2  -0  -2   1  -4   2  -0   3   4   3  -4  -4  -2   1  -1  -1   1   1   5  -0  -0   1   0 -40  -0  15   1  12 100  87   0   1   0  -1  -0   0  -1   5   7   5  -1  -4   1  -1  -1   0  -0  -3  -3
+ph8str                96:    2   0  -2  -1   1  -0  -1   1  -1  -2   1   1   1   1   1  -0   0  -1   1   1   0  -2   0  -0  -0   2   0   2  -0  -0   1  -1  -1   0  -3   0  -2   2   2  -1  -0   3   3  -0  -2   5  -0   0   1  -2   2  -2   3  -2  -1  -2  -0   1   1   1   1  -0  -1  -0   1   0  -1  -3   1   3  -0  -2  -1  -1   2   6   2   0   1   1   2   1  -1  -3   2   0   1   1   1  -2   1  12   2  10  87 100  -0   0   1  -1   1   1  -7  -3   6   3   1  -2   1  -0   0   2   1  -1  -1
+scale109102760        97:   -1   2   6   5   2   2  -0  -2   5  -1   2  -1   0  11  -2  -4  -1 -43   5  -2   3  -3   6   4 -12  -1   7  -7 -10   2  -2   8   6   3  -1  -9  -3   3  -2   3  10   9  10  -3   5  -4  10  -0  -1   5   2   2  -5  -3  -1  -0  -2   6   3  -1   1   3   5  -4 -13  -2  13  13  -3  -7   5  -2  16   4   3   1  -1  -3  -3   6  -1   0  -1  -1   4 -20  15  -7 -15  -4   1   2  -1  -5   0  -0 100  -2  10   5 -42 -15   6   1   0   3   1  -8   4   1  -1  -7  -1  -9 -10
+a_lp109038272         98:   -1  -2   1  -0  -0  -1   2   2   0  -4   3  -0  -0   2   1   0   1   2   1   2  -5  -4   3   0  -0  -3   2  -3   0   1   1   2   2   1   0  -2  -2   1  -3   1   3  -1  -1  -1   2  -1  -1  -2  -2  -2   4   1  -1   0   2   2   4  -1  -3  -1  -4   1  -1  -0   0  -1   1  -1   2  -0  -6  -3  -2   4  -1  -1  -0  -1  -1  -1   0  -1  -3   1   2   2   3   1   3  -4  -2   1  -1  -4   1   0  -2 100 -52 -18   0  -2   3   1  -2  -1  -1  -2   1  -1  -1   0   8   5   4
+b_lp109034576         99:   -2   1   3  -1   0   1   0  -0   1   4  -3  -0  -0  -1  -1  -1  -1  -6   0  -1   2   1  -3   3   0   2  -0   4   3   0  -1  -3  -4   0   0   2   1   1  -1   4  -1   1   1   1  -1   0   1   0   1   2  -3  -1   1   2   1   1   1   3   3  -1   2  -1   1  -1  -0   0   3   1   2   1   3  -4   3  -1  -0   0  -1  -0  -0   0  -2   1   1  -0  -3  -2   2  -0  -1   1   2   1  -1  -1   0   1  10 -52 100 -43  -2   4   0   0  -0  -0   2   1  -2  -1  -1   3  -9  -6  -4
+c_lp109036864         100:    4   1  -4   1   0  -1  -3   5  -0  -0  -0   0   0  -1  -0   1   1  -6   8   2   8   4   1  -1  -1  -0  -1  -0  -5  -1  -1   1   1   0  -4   1  -2  -2   6  -9  -5  -2  -3  -1   0   2  -2   0   3   0  -1  -1   1  -2  -2  -3  -4  -2   1   3   2  -2   2   1   2   0  -3  -3  -0   1   2   3  -1  -4   1  -1   1  -1  -1   1   2   1   1   0   2  -1   6   2   3   2  -0  -1   1   4  -1  -1   5 -18 -43 100  -3  -3  -3  -2   3   2  -2   0   1   1   0   1   8  -2  -1
+ph9cs                 101:    4  -2  -6   1  -3  -0   1  -0  -5  -1  -0   1  -1  -2  -1   3   2  16  -8   1  -4  -4  -2   7  11   1  -2   3   4  -0   2  -2  -3   0   1   3   2  -3  -2   2  -5  -6  -7   2  -4   0  -6   0  -1  -3  -1   0   2   2   1  -0   2  -7  -5  -1  -2   2  -3   3   7   1  -4  -8   1   5  -3   2  -7  -1  -3   2   2   1   1  -6   4   4  -1  -2   1   9  -6   4   7   2  -0  -2   1   2  -0   1 -42   0  -2  -3 100  92  -3  -0   0  -1  -2   2  -2   1   1   2   1   3   4
+ph9str                102:    3  -1  -4   1  -2  -0   1  -1  -4  -1   0   1  -1   0  -1   2   2   5  -6  -0  -3  -4  -1   8   7   2   0   2   2   1   2  -1  -1   1   0   1   2  -3  -3   4  -3  -5  -6   1  -3   0  -4   0  -1  -1  -1   1   1   2   1  -0   2  -5  -4  -1  -2   2  -3   3   4   1  -1  -5   0   4  -2   2  -3  -0  -2   3   2   0  -0  -5   4   5  -1  -3   3   5  -4   3   6   2   0  -2   1   0   0   1 -15  -2   4  -3  92 100  -1   0   0  -0  -1   1  -1   1   1   0  -0   1   2
+scale109155992        103:  -19   7  12  -6 -10  16 -17  -0  15   1   2 -10  -7 -24   2  12   3   3  -1  -2  -5  -5  -7   6   5   7  -9   4   9  -4   3  -3  -5  -2   7   1   7 -14  14  -8  14   6  -2  11   8 -14  -2  -3 -15   4   3   7  -7  -9   1   2   7   3   1  -9  -1  -1  14   3  -9 -25   5  24  10  -6 -22   9 -12   5   2  -2  -3  -5  -6   2  -1   1   0   7   5  -1  -3  -2  -2 -25   4   1  -1 -36  -1  -7   6   3   0  -3  -3  -1 100   9 -33   8  11   3   3 -12 -11  -6  -5  -2  -3
+a_lp109038448         104:    2  -3  -3   4   1  -6   3  -3  -9   1   1  -3  -4  11   0  -7  -4   1  -2   1  -3   1   4  -4  -4   2  -3   5   3   4  11  -6   3  -7  -2  -3   6  -3   6   3  -0  -1  -2  -5   4   7  -6   5   1  -6  -1 -13   7   1  18  19   3  -1  11 -13  -7  -5 -18  13  -6  18  -2   7 -15  -6 -11  12   1   8   0   2  -1  -0   1   2  -7   1  -4   2   1  10  -1  -4  -2 -26   5   3  -2 -25   5  -3   1   1   0  -2  -0   0   9 100  -6  -2   1  -2  -2   0   2   3  -3  -2  -1
+ph10cs                105:    2   5  -1  -5   4  -2   4   5  -8  -4   2   4   2  -1   2   3   3  -2   8   6   7   6   5  -2  -2  -2   9  -0  -6   5  -4   3  -0  -1  -2  -0  -4  11  -9   7  -4  -1   3  -6  -1   1   9  -3   7  11   9   9  -9 -10 -10  -8  -1  -8 -18   0   3   9   3  -7   6  -1   4 -10   1   5  15  -5   8 -11   3  -1   4  -1  -2  -2   3   5   6  -2   2  -5   5   2   1   5   3   0  -0  17   7   6   0  -2  -0   3   0   0 -33  -6 100  89  -3  -1  -2   3  -1   1   3   2   3
+ph10str               106:   -3   8   2  -7   0   4  -2   5  -6  -4   3   0  -1 -11   2   7   3  -1   8   6   5   5   2   1   1  -0   5   1  -3   5  -3   2  -2  -2   1  -0  -0   4  -4   4   2   1   2  -4   3  -5  10  -5   2  14  12  16 -16 -18 -11  -7   2 -11 -22  -6   2  11   8  -6   3 -10   4  -2   3   2   8   1   5 -10   3  -3   4  -3  -4  -1   3   8   7   1   5  -7   5   2   0  -6   3   1  -0   2   5   3   3  -1  -0   2  -1  -0   8  -2  89 100  -0  -0  -2  -2  -5  -1   1   2   2
+scale109210368        107:  -46  18  35 -30  10   0  -4   2 -19  -5  -0   6  -3 -38  15  12   6  -7   2   4   0   3  -7 -12 -11  13 -16   8   2   6  -3 -10   5  -7  -0   6  -1   6   2   1  10  10  10   1  -1   7  13 -14  -3  24  -5  -5   4   6 -10  -1   6  12  -5  -5   8  11  15   4  -2 -12   2  10  30   5  -4 -34 -13   8   4  -1  -4  -1  -1  10   0 -11  -3  -1   2   4   3  -6  -3   3   0   1  -1  -4  -1   1   1  -1   2  -2  -2  -1  11   1  -3  -0 100   9  -9 -39  11   3   3  -0   0
+a_lp109197984         108:   -6  -1   7  -7  -2   5   4   3  -2   2  -3   5   3 -24  21  30  29  13   3  -3   2   1  -3   3   9  -2  -9   7  -2  -8  -4  -3 -14   1  -8   7  -8   2   0   1  -1   5   4   2  10  -1  -5  -6   1   1 -13   1  -1   7   2   5   4   7   3  -7  -2  -0   8  -3   6  -2 -19  -2   4  -2  -2  -2 -11   2  -7  -1  -5   5   6 -10  -5  -3  -3  10 -13  -1   2   2   3   5   1  -3   1  -3  -4  -2  -8  -2   1   0   2   1   3  -2  -1  -0   9 100 -36 -19 -18   5   0  10  10
+c_lp109195344         109:    1   1  -2   4  -2   4  -6   1  21   8   3  -4   3 -11   5 -13 -18   1  -2   5  -1  -2  -1   3   3  -8  -0  -7  -2  -8  -0   1   5  -0   1  -5  -3  -1  17 -23   1  -3  -3  -8   7  10   3   1   1  -5   2   5  -4  -2  -4  -6  -7   4  -3   6  -8   2   2  -5  -8  -3  -4   7   1  -4  -3   2  -5   1   4   0   3  -2  -2   5   2  -0   2  -1   5   1   1   0   1   0  -1   2  -1  -1   1   1   4   1  -2   1  -2  -1   3  -2  -2  -2  -9 -36 100  10   8  -1   2  -3  -3
+ph11cs                110:   17  -6 -15  15  -2  -7   5  -3   5  -1   2   3   7  34 -28  -9   0   2  -3  -2   0   1   3   3   2   1  10  -2  -2   2  -4   7  -3   4   7   2   6  -9  -4   2  -4  -7  -7 -10  -5  -1  -6   5   1  -7   1   3  -3  -2   2  -2  -4  -1   3  -1  -2  -6  -8  -4  -4   7   1  -2 -12  -5   5  14  12  -3 -10  -1  -1   6   5  -7  -1  -1   2  -6  -3  -3  -3   3   1   2  -1   0   0   2  -1  -0   1  -1  -1   1   1   1 -12   0   3  -2 -39 -19  10 100  81  -4  -4  -2  -3
+ph11str               111:   -5   2   2   2   1  -6   0  -3  -5  -3   2   6   7  22 -33  -7   2  -0  -3  -1   0   2   1  -3  -4   8   1  -1  -2   3  -4   4   1   3   6   3   4  -5  -0  -1  -1  -1  -1  -4  -5  -1  -2  -3  -2   3  -6   5  -4   6  -3  -3  -5   3  -0   2   2  -0  -1  -1  -2   0  -1   1  -3  -2   3   3   3   0  -7  -1  -3   5   4  -3   1  -5   1  -4  -3  -0  -2   0   0   4  -2   1  -0  -0  -1   0  -1  -1  -1   0   1   1 -11   2  -1  -5  11 -18   8  81 100  -7  -2  -1  -2
+scale109247144        112:    2  -9   0   3   2  -6   5   4   7   1  -7  -5  -3  -3   2   7   6 -16   6  -0   2   4 -12  -2  -2 -19  -8   3  -8   3 -20  -7 -12  -4 -11   5 -16  -8   6  -8  -4  -9 -10 -17  -4  22   2   8   2 -14  17   1  -3  -4   6   4   7  13  13  -6 -16 -18  -2  -1  -8   1 -12  -3  17   9 -11 -20 -12   9  -5  -1   3   5   6  -3 -11  -6  -2   4  -5  -0   6   6   9   2   2  -1   0   3   0   2  -7   0   3   1   2   0  -6   3   1  -1   3   5  -1  -4  -7 100  33   6  22
+a_lp109200448         113:   -4  -4   5  -4  -2   1  -0  45   3  -7   3   5   4  -2   1   8   8  -7  27  30  24   2 -13   1   4 -17  -4  -2  -7  -2  -6  -5  -2   1 -15  -0 -19  10   5  -5   2   1   2  11   3  -6  -4  -1  -6  -7   7   4  -1  -3   4   4   4  -1   5   1   1  -7  -1  -1   4  -0  -5  -8  11   8  -6 -14 -10   2  -2   0   0   1   1  -1  -2  -4  -3   6  -2  -2  35   8  10   5   0   1   1   5  -0   1  -1   8  -9   8   1  -0  -5  -3   3   1   3   0   2  -4  -2  33 100   5   9
+ph12cs                114:   -4  -2   1  -5  -4   0  -0   1  -3  -2  -2  -2  -4  -3  -4   9   9   2   7   4   1  12 -17   0   3 -13  -5   9   4  -1  -2  -8  -4  -1  -5   9   2   9   3  -2  -1   4   4  10  11 -10  -4  -8  -2   1  -8   6  -3   2   7   9  -3  -9   0   2   0  -0  -3   3   5   5  -5  -5   2   2   2  -1  -5  -3   1   0  -1  -1  -2  -1   4  -0   0   3  -3   1  -3   3   5   8  -0  -2   1   1  -3  -1  -9   5  -6  -2   3   1  -2  -2   2   2  -0  10  -3  -2  -1   6   5 100  97
+ph12str               115:   -3  -3   1  -3  -4  -1   1   0  -2  -1  -4  -3  -5  -3  -4   8   9  -1   6   3   0  10 -15  -1   2 -14  -7   7   1  -1  -5  -8  -4  -1  -6   9  -1   6   4  -3  -2   3   3   6   9  -4  -3  -5  -1  -2  -7   7  -5   3   8   9  -1  -7   2   0  -3  -2  -4   4   3   6  -8  -6   3   3   0  -3  -7  -1  -1   0  -1  -0  -0  -1   1  -2   0   4  -4   2  -3   5   8   7  -0  -2   1   1  -3  -1 -10   4  -4  -1   4   2  -3  -1   3   2   0  10  -3  -3  -2  22   9  97 100
+}

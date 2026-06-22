@@ -1,0 +1,525 @@
+macro ParFileName()
+{
+   "E:\Business\Py\NN_QPA_OSO\XRD_Data\XY_2020_доб\..\ParamAnalysisData\д 1132д_180521.txt"
+}
+
+macro Rewrite_DDMparam()
+{
+  out ParFileName() 
+	Out_String("SRfactor SZero SDispl STransp + C Wght ESU SF A B C Alpha Beta Gamma NA NB NC P1 P2 P3 U V W Z hh kk ll hk hl kl s1 s2 s3 s4 s5 s6\n")
+	Out(Get(r_wp), "%6.3f ")
+	Out(zeval, "%6.5f ")
+	Out(sdval, "%6.5f 0")
+}
+
+macro Out_Cell_Params(argwt1, argsc1)
+{
+      out ParFileName() append
+	Out(Get(argwt1), " %6.3f", " %5.5f")
+	Out(Get(argsc1), " %6.9f")	
+	Out(Get(a), " %6.5f")
+	Out(Get(b), " %6.5f")
+	Out(Get(c), " %6.5f")
+	Out(Get(al), " %6.4f")
+	Out(Get(be), " %6.4f")
+	Out(Get(ga), " %6.4f")
+}
+
+macro PV_Peak_Type_w_Out(ha, hav, hb, hbv, hc, hcv, lora, lorav, lorb, lorbv, lorc, lorcv, po1_par, po2_par, po3_par)
+{
+   #m_argu ha
+   #m_argu hb
+   #m_argu hc
+   #m_argu lora
+   #m_argu lorb
+   #m_argu lorc
+   If_Prm_Eqn_Rpt(ha,   hav, )  ' W
+   If_Prm_Eqn_Rpt(hb,   hbv, )  ' V
+   If_Prm_Eqn_Rpt(hc,   hcv, )  ' U
+   If_Prm_Eqn_Rpt(lora, lorav, )  ' NA
+   If_Prm_Eqn_Rpt(lorb, lorbv, )  ' NB
+   If_Prm_Eqn_Rpt(lorc, lorcv, )  ' NC
+   peak_type pv
+      pv_lor = CeV(lora,lorav) + CeV(lorb,lorbv) Tan(Th) + CeV(lorc,lorcv) / Cos(Th);
+      pv_fwhm = CeV(ha,hav) + CeV(hb,hbv) Tan(Th) + CeV(hc,hcv) / Cos(Th);
+
+      out ParFileName() append
+	Out(lora, " %6.4f")
+	Out(lorb, " %6.4f")
+	Out(lorc, " %6.4f")
+	Out(sam, " %6.4f 0 0")
+	Out(hc, " %6.4f")
+	Out(hb, " %6.4f")
+	Out(ha, " %6.4f 0")
+	Out(po1_par, " %6.5f")
+	Out(po2_par, " %6.5f")
+	Out(po3_par, " %6.5f 0 0 0 0 0 0 0 0 0")
+}
+
+macro CS_L_w_Out(c, v)
+{
+   #m_argu c
+   If_Prm_Eqn_Rpt(c, v, min .3 max = Min(Val 2 + .3, 10000);)
+   lor_fwhm = 0.1 Rad Lam / (Cos(Th) CeV(c,v));
+
+     out ParFileName() append
+	Out(c, " %6.4f 0 1001")   ' NA, NB, NC
+	Out(sam, " %6.4f 0 0")
+}
+
+macro Strain_L_w_Out(c, v, po1_par, po2_par, po3_par)
+{
+   #m_argu c
+    If_Prm_Eqn_Rpt(c, v, min .0001 max 5)
+    lor_fwhm = CeV(c,v) Tan(Th);
+
+     out ParFileName() append
+	Out(c, " 0 0 %6.4f 0")   ' U, V, W
+	Out(po1_par, " %6.5f")
+	Out(po2_par, " %6.5f")
+	Out(po3_par, " %6.5f 0 0 0 0 0 0 0 0 0")
+}
+
+macro PVII_Peak_Type_w_Out(ha, hav,   hb, hbv,   hc, hcv,   ma, mav,   mb, mbv,   mc, mcv)
+{
+   #m_argu ha
+   #m_argu hb
+   #m_argu hc
+   #m_argu ma
+   #m_argu mb
+   #m_argu mc
+   If_Prm_Eqn_Rpt(ha, hav, min 0.0001 max 0.02)
+   If_Prm_Eqn_Rpt(hb, hbv, min 0.0001 max 0.02)
+   If_Prm_Eqn_Rpt(hc, hcv, min 0.0001 max 0.3)
+   If_Prm_Eqn_Rpt(ma, mav, min 0.0001 max 0.1)
+   If_Prm_Eqn_Rpt(mb, mbv, min 0.0001 max 0.1)
+   If_Prm_Eqn_Rpt(mc, mcv, min 0.0001 max 1)
+   peak_type spvii
+      m1 = .6 + CeV(ma,mav) + CeV(mb,mbv) / Cos(Th) + CeV(mc,mcv) Tan(Th);
+      m2 = Get(m1);
+      h1 = CeV(ha,hav) + CeV(hb,hbv) / Cos(Th) + CeV(hc,hcv) Tan(Th);
+      h2 = Get(h1);
+
+     out ParFileName() append
+	Out(ma, " %6.4f")
+	Out(mb, " %6.4f")
+	Out(mc, " %6.4f 0 0")
+	Out(sam, " %6.4f 0 0")
+	Out(hc, " %6.4f")
+	Out(hb, " %6.4f")
+	Out(ha, " %6.4f 0 0 0 0 0 0 0 0 0 0 0 0 0")
+}
+
+macro Out_Site
+{
+     out ParFileName() append
+     load out_record out_fmt out_eqn {
+          "\n%5s" =Get(site);   
+          " %4s"  =Get(atom); 
+          " %7.5f" =Get(x);      
+          " %7.5f" =Get(y);
+          " %7.5f" =Get(z);
+          " %7.5f" =Get(beq);
+          " %7.5f" =Get(occ);' * Get(num_posns);
+      }
+}
+
+
+
+
+'======================= End of Macroses ================================
+
+do_errors
+r_wp 0  r_exp 0  r_p 0  r_wp_dash 0  r_p_dash 0  r_exp_dash 0  weighted_Durbin_Watson 0  gof 0
+
+
+xdd "д 1132д_180521.xy"
+  x_calculation_step 0.02
+  CuKa2(0.001)
+  bkg @  0 0 0 0 0 0 0
+  Simple_Axial_Model(!sam, 14 min 5 max 25)
+  LP_Factor(, 26.37)
+  Rp 200
+  Rs 200
+  ZE(zeval, 0.02 min -0.06 max 0.06)
+  SD(!sdval, 0.0 min -0.001 max 0.001)
+
+  Rewrite_DDMparam()
+
+'======== Phase 1 ========
+
+str
+  phase_name alpha-Al2O3
+  space_group R-3cH
+  Hexagonal(@ 4.7698 min 4.755 max 4.77, @ 13.0243 min 13 max 13.05)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_1 1
+  prm !po2_1 1
+  prm !po3_1 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph1cs  100 min 45 max 150
+  prm ph1str  0.1 min 0.01 max 0.35
+  CS_L_w_Out(@, =ph1cs;)
+  Strain_L_w_Out(@, =ph1str;, po1_1, po2_1, po3_1)
+
+  site Al1  x 0       y 0       z 0.35231  occ Al+3  1  beq 0.4129442  Out_Site
+  site O1   x 0.6936  y 0       z 0.25     occ O-2   1  beq 0.4618975  Out_Site
+
+'======== Phase 2 ========
+
+str
+  phase_name gamma-Al2O3
+  space_group Fd-3mZ
+  Cubic(@ 7.911 min 7.9 max 7.937)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_2 1
+  prm !po2_2 1
+  prm !po3_2 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph2cs  100 min 45 max 300
+  prm ph2str  0.1 min 0.001 max 0.35
+  CS_L_w_Out(@, =ph2cs;)
+  Strain_L_w_Out(@, =ph2str;, po1_2, po2_2, po3_2)
+
+  site O1   x 0.2547  y 0.2547  z 0.2547   occ O     1  beq 1  Out_Site
+  site Al1  x 0.5     y 0.5     z 0.5      occ Al    0.58  beq 0.5  Out_Site
+  site Al2  x 0.125   y 0.125   z 0.125    occ Al    0.84  beq 0.5  Out_Site
+  site Al3  x 0.0272  y 0.0272  z 0.0272   occ Al    0.17  beq 0.5  Out_Site
+
+'======== Phase 3 ========
+
+str
+  phase_name Cryolite
+  space_group P121/c1
+  a @ 5.405
+  b @ 5.58
+  c @ 9.4464
+  be @ 124.767
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  PO(po1_3, 1.0 min 0.95 max 1.1, !mdangle1_3, 1 1 1)
+  prm !po2_3 1
+  prm !po3_3 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(6, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph3cs  100 min 70 max 500
+  prm ph3str  0.1 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph3cs;)
+  Strain_L_w_Out(@, =ph3str;, po1_3, po2_3, po3_3)
+
+  site Na1  x 0.5     y 0       z 0.5      occ Na+1  1  beq 1.75  Out_Site
+  site Al1  x 0       y 0       z 0        occ Al+3  1  beq 0.85  Out_Site
+  site Na2  x @ 0.2656 min 0.2638 max 0.27 y @ 0.448 min 0.448 max 0.456 z @ 0.2518 min 0.2501 max 0.257  occ Na+1  1  beq 1.76  Out_Site
+  site F1   x @ 0.1152 min 0.114 max 0.12 y @ 0.0436 min 0.042 max 0.05 z @ 0.2182 min 0.214 max 0.223  occ F-1   1  beq 1.35  Out_Site
+  site F2   x @ 0.2285 min 0.22 max 0.229 y @ 0.7285 min 0.73 max 0.738 z @ 0.0638 min 0.057 max 0.064  occ F-1   1  beq 1.2  Out_Site
+  site F3   x @ 0.3215 min 0.307 max 0.319 y @ 0.1765 min 0.166 max 0.18 z @ 0.047 min 0.037 max 0.048  occ F-1   1  beq 1.4  Out_Site
+
+'======== Phase 4 ========
+
+str
+  phase_name Chiolite
+  space_group P4/mnc
+  Tetragonal(@ 7.0138 min 7.02 max 7.06, @ 10.402 min 10.36 max 10.403)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm  ph4xxNa  0.2768 min 0.276 max 0.279
+
+  PO(po1_4, 1.0 min 0.93 max 1, !mdangle1_4, 0 0 1)
+  prm !po2_4 1
+  prm !po3_4 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(7, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph4cs  100 min 80 max 350
+  prm ph4str  0.1 min 0.001 max 0.40
+  CS_L_w_Out(@, =ph4cs;)
+  Strain_L_w_Out(@, =ph4str;, po1_4, po2_4, po3_4)
+
+  site Na1  x 0       y 0       z 0.5      occ Na+1  1  beq 1.55  Out_Site
+  site Na2  x 0.277   y 0.777   z 0.25     occ Na+1  1  beq 1.7  Out_Site
+  site Al1  x 0       y 0       z 0        occ Al+3  1  beq 1.4  Out_Site
+  site Al2  x 0       y 0.5     z 0        occ Al+3  1  beq 0.88  Out_Site
+  site F1   x 0       y 0       z @ 0.1711 min 0.17 max 0.177  occ F-1   1  beq 1.7  Out_Site
+  site F2   x @ 0.0642 min 0.058 max 0.064 y @ 0.2477 min 0.245 max 0.252 z 0        occ F-1   1  beq 1.7  Out_Site
+  site F3   x @ 0.1794 min 0.176 max 0.182 y @ 0.5364 min 0.532 max 0.54 z @ 0.1198 min 0.118 max 0.121  occ F-1   1  beq 1.5  Out_Site
+
+'======== Phase 5 ========
+
+str
+  phase_name NaCa(AlF6)
+  space_group P121/c1
+  a @ 8.7423 min 8.715 max 8.795
+  b @ 5.1927 min 5.145 max 5.21
+  c @ 20.35139 min 20.3 max 20.46
+  be @ 91.499 min 90.85 max 91.5
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_5 1
+  prm !po2_5 1
+  prm !po3_5 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(18, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph5cs  100 min 30 max 150
+  prm ph5str  0.1 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph5cs;)
+  Strain_L_w_Out(@, =ph5str;, po1_5, po2_5, po3_5)
+
+  site Na1  x @ 0.9768 min 0.966800 max 0.986800 y @ 0.2543 min 0.244300 max 0.264300 z @ 0.1781 min 0.168100 max 0.188100  occ Na+1  1  beq 2.2  Out_Site
+  site Na2  x @ 0.9681 min 0.958100 max 0.978100 y @ 0.2734 min 0.263400 max 0.283400 z @ 0.4413 min 0.431300 max 0.451300  occ Na+1  1  beq 2.2  Out_Site
+  site Ca1  x @ 0.6403 min 0.630300 max 0.650300 y @ 0.2375 min 0.227500 max 0.247500 z @ 0.3108 min 0.300800 max 0.320800  occ Ca+2  1  beq 0.85  Out_Site
+  site Ca2  x @ 0.6357 min 0.625700 max 0.645700 y @ 0.3219 min 0.311900 max 0.331900 z @ 0.5623 min 0.552300 max 0.572300  occ Ca+2  1  beq 0.85  Out_Site
+  site Al1  x @ 0.2588 min 0.248800 max 0.268800 y @ 0.2561 min 0.246100 max 0.266100 z @ 0.3189 min 0.308900 max 0.328900  occ Al+3  1  beq 1.67  Out_Site
+  site Al2  x @ 0.2528 min 0.242800 max 0.262800 y @ 0.1903 min 0.180300 max 0.200300 z @ 0.5688 min 0.558800 max 0.578800  occ Al+3  1  beq 1.67  Out_Site
+  site F1   x 0.629   y 0.6261  z 0.4777   occ F-1   1  beq 1.46  Out_Site
+  site F2   x 0.5863  y 0.6137  z 0.6397   occ F-1   1  beq 1.46  Out_Site
+  site F3   x 0.7338  y 0.0827  z 0.4824   occ F-1   1  beq 1.46  Out_Site
+  site F4   x 0.3809  y 0.1003  z 0.2626   occ F-1   1  beq 1.46  Out_Site
+  site F5   x 0.1625  y -0.0247 z 0.6328   occ F-1   1  beq 1.46  Out_Site
+  site F6   x 0.1643  y 0.4377  z 0.3814   occ F-1   1  beq 1.46  Out_Site
+  site F7   x 0.2357  y 0.4669  z 0.6229   occ F-1   1  beq 1.46  Out_Site
+  site F8   x 0.5786  y 0.5944  z 0.8821   occ F-1   1  beq 1.46  Out_Site
+  site F9   x 0.9132  y 0.6404  z 0.226    occ F-1   1  beq 1.46  Out_Site
+  site F10  x 0.7403  y 0.0217  z 0.2307   occ F-1   1  beq 1.46  Out_Site
+  site F11  x 0.7551  y 0.0334  z 0.6259   occ F-1   1  beq 1.46  Out_Site
+  site F12  x 0.0748  y 0.279   z 0.5398   occ F-1   1  beq 1.46  Out_Site
+
+'======== Phase 6 ========
+
+str
+  phase_name Na2Ca3Al2F14
+  space_group I213
+  Cubic(@ 10.257 min 10.242 max 10.254)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  PO(po1_6, 1.0 min 0.72 max 1, !mdangle1_6, 1 1 1)
+  prm !po2_6 1
+  prm !po3_6 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(6, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph6cs  100 min 65 max 350
+  prm ph6str  0.1 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph6cs;)
+  Strain_L_w_Out(@, =ph6str;, po1_6, po2_6, po3_6)
+
+  site Ca1  x 0.4667  y 0       z 0.25     occ Ca+2  1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+  site Al1  x 0.2482  y 0.2482  z 0.2482   occ Al+3  1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+  site Na1  x 0.0847  y 0.0847  z 0.0847   occ Na+1  1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+  site F1   x 0.1387  y 0.3062  z 0.1206   occ F-1   1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+  site F2   x 0.364   y 0.3627  z 0.1873   occ F-1   1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+  site F3   x 0.4614  y 0.4614  z 0.4614   occ F-1   1  beq @ 0.7 min 0.7 max 1.5  Out_Site
+
+'======== Phase 7 ========
+
+str
+  phase_name Fluorite
+  space_group Fm-3m
+  Cubic(@ 5.462 min 5.463 max 5.469)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_7 1
+  prm !po2_7 1
+  prm !po3_7 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph7cs  100 min 60 max 350
+  prm ph7str  0.1 min 0.001 max 0.38
+  CS_L_w_Out(@, =ph7cs;)
+  Strain_L_w_Out(@, =ph7str;, po1_7, po2_7, po3_7)
+
+  site Ca1  x 0       y 0       z 0        occ Ca+2  1  beq 0.57  Out_Site
+  site F1   x 0.25    y 0.25    z 0.25     occ F-1   1  beq 0.81  Out_Site
+
+'======== Phase 8 ========
+
+str
+  phase_name Weberite
+  space_group Imma
+  a @ 7.05 min 7.05 max 7.072
+  b @ 9.979 min 9.98 max 10.02
+  c @ 7.297 min 7.29 max 7.31
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  PO(po1_8, 1.0 min 0.9 max 1, !mdangle1_8, 0 1 1)
+  prm !po2_8 1
+  prm !po3_8 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(7, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph8cs  100 min 150 max 500
+  prm ph8str  0.1 min 0.001 max 0.35
+  CS_L_w_Out(@, =ph8cs;)
+  Strain_L_w_Out(@, =ph8str;, po1_8, po2_8, po3_8)
+
+  site Na1  x 0.25    y 0.25    z 0.75     occ Na+1  1  beq 1  Out_Site
+  site Na2  x 0       y 0       z 0        occ Na+1  1  beq 1  Out_Site
+  site Mg1  x 0.25    y 0.25    z 0.25     occ Mg+2  1  beq 1  Out_Site
+  site Al1  x 0       y 0       z 0.5      occ Al+3  1  beq 1  Out_Site
+  site F1   x 0       y 0.25    z 0.1362   occ F-1   1  beq 1  Out_Site
+  site F2   x 0       y 0.4144  z 0.7213   occ F-1   1  beq 1  Out_Site
+  site F3   x 0.1845  y 0.3874  z 0.4304   occ F-1   1  beq 1  Out_Site
+
+'======== Phase 9 ========
+
+str
+  phase_name Neighborite
+  space_group Pnma
+  a @ 5.4928 min 5.488 max 5.5
+  b @ 7.71 min 7.665 max 7.69
+  c @ 5.37645 min 5.36 max 5.387
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_9 1
+  prm !po2_9 1
+  prm !po3_9 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph9cs  100 min 100 max 350
+  prm ph9str  0.1 min 0.001 max 0.3
+  CS_L_w_Out(@, =ph9cs;)
+  Strain_L_w_Out(@, =ph9str;, po1_9, po2_9, po3_9)
+
+  site Na1  x 0.03975 y 0.25    z 0.488    occ Na+1  1  beq 1.762317  Out_Site
+  site Mg1  x 0       y 0       z 0        occ Mg+2  1  beq 0.7745665  Out_Site
+  site F1   x 0.4547  y 0.25    z 0.58705  occ F-1   1  beq 3.754397  Out_Site
+  site F2   x 0.29105 y 0.04897 z 0.21265  occ F-1   1  beq 1.37148  Out_Site
+
+'======== Phase 10 ========
+
+str
+  phase_name Elpasolite
+  space_group Fm-3m
+  Cubic(@ 8.093 min 8.095 max 8.112)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_10 1
+  prm !po2_10 1
+  prm !po3_10 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(4, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph10cs  100 min 60 max 200
+  prm ph10str  0.1 min 0.001 max 0.4
+  CS_L_w_Out(@, =ph10cs;)
+  Strain_L_w_Out(@, =ph10str;, po1_10, po2_10, po3_10)
+
+  site K    x 0.25    y 0.25    z 0.25     occ K     1  beq 1.223831  Out_Site
+  site Na   x 0.5     y 0.5     z 0.5      occ Na    1  beq 0.8448381  Out_Site
+  site Al   x 0       y 0       z 0        occ Al    1  beq 0.5842806  Out_Site
+  site F    x 0.2225  y 0       z 0        occ F     1  beq 1.279101  Out_Site
+
+'======== Phase 11 ========
+
+str
+  phase_name K1.58Al11O17
+  space_group R-3mH
+  Hexagonal(@ 5.63 min 5.585 max 5.62, @ 34.01 min 33.89 max 34.17)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_11 1
+  prm !po2_11 1
+  prm !po3_11 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(11, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph11cs  100 min 45 max 150
+  prm ph11str  0.1 min 0.001 max 0.37
+  CS_L_w_Out(@, =ph11cs;)
+  Strain_L_w_Out(@, =ph11str;, po1_11, po2_11, po3_11)
+
+  site Al1  x 0.16712 y -0.16712 z 0.9298   occ Al    1  beq 1  Out_Site
+  site Al2  x 0       y 0       z 0.34988  occ Al    1  beq 1  Out_Site
+  site Al3  x 0       y 0       z 0.44935  occ Al    1  beq 1  Out_Site
+  site Al4  x 0       y 0       z 0        occ Al    1  beq 1  Out_Site
+  site O1   x 0.16419 y -0.16419 z 0.23615  occ O     1  beq 1  Out_Site
+  site O2   x 0.15396 y -0.15396 z 0.03384  occ O     1  beq 1  Out_Site
+  site O3   x 0       y 0       z 0.09512  occ O     1  beq 1  Out_Site
+  site O4   x 0       y 0       z 0.2952   occ O     1  beq 1  Out_Site
+  site O5   x 0       y 0       z 0.5      occ O     1  beq 1  Out_Site
+  site K1   x 0       y 0       z -0.17086  occ K     0.31  beq 1  Out_Site
+  site K2   x 0.08717 y -0.08717 z -0.16784  occ K     0.16  beq 1  Out_Site
+
+'======== Phase 12 ========
+
+str
+  phase_name Villiaumite
+  space_group Fm-3m
+  Cubic(@ 4.634 min 4.633 max 4.64)
+  scale @  0
+  r_bragg  0
+  weight_percent 0
+
+  prm !po1_12 1
+  prm !po2_12 1
+  prm !po3_12 1
+
+  out ParFileName() append
+  Out(Get(phase_name), "\n%s")
+  Out(2, "\n%3.0f")
+  Out_Cell_Params(weight_percent, scale)
+  prm ph12cs  100 min 90 max 170
+  prm ph12str  0.1 min 0.001 max 0.38
+  CS_L_w_Out(@, =ph12cs;)
+  Strain_L_w_Out(@, =ph12str;, po1_12, po2_12, po3_12)
+
+  site Na   x 0       y 0       z 0        occ Na    1  beq 1  Out_Site
+  site F    x 0.5     y 0.5     z 0.5      occ F     1  beq 1  Out_Site
+
+
+'======= END =======
+'
+'

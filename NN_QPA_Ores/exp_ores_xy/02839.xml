@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<OneSample>
+  <Version>1078</Version>
+  <Sample>
+    <Group>Tests</Group>
+    <Name>02839</Name>
+    <FileName>02839</FileName>
+    <Folder>2025_03_05_02839</Folder>
+    <Device>Cu - Bruker D8</Device>
+    <DateTime>05.03.2025 15:39:36</DateTime>
+    <TopasDate>25.10.2025</TopasDate>
+    <Comment></Comment>
+    <Topas_Rwp>8.565</Topas_Rwp>
+    <RSA_Corr_coef>-1</RSA_Corr_coef>
+    <sType>2</sType>
+    <MaxRSAdelta>-5.65</MaxRSAdelta>
+    <MaxRSAelem>Fe</MaxRSAelem>
+    <IPS_KO>0</IPS_KO>
+    <Topas_KO>0</Topas_KO>
+    <TopasCorr_KO>0</TopasCorr_KO>
+    <RSA_Elements>
+      <Element Name="S" Conc="0" Corr="0" Sign=""/>
+      <Element Name="Ca" Conc="0.525" Corr="0" Sign=""/>
+      <Element Name="Fe" Conc="4.88" Corr="0" Sign=""/>
+      <Element Name="As" Conc="0.124" Corr="0" Sign=""/>
+      <Element Name="C" Conc="0.266" Corr="0" Sign=""/>
+    </RSA_Elements>
+    <IPS_Elements>
+      <Element Name="O" Conc="50.6"/>
+      <Element Name="C" Conc="0.04"/>
+      <Element Name="B" Conc="0.06"/>
+      <Element Name="H" Conc="0.62"/>
+      <Element Name="Si" Conc="29.9"/>
+      <Element Name="Al" Conc="6.71"/>
+      <Element Name="Mg" Conc="2.83"/>
+      <Element Name="Na" Conc="1.02"/>
+      <Element Name="Ti" Conc="0.24"/>
+      <Element Name="Ca" Conc="0.42"/>
+      <Element Name="K" Conc="2.2"/>
+      <Element Name="Fe" Conc="5.2"/>
+    </IPS_Elements>
+    <IPS_Phases>
+      <Phase Formula="Si O2" Name="Quartz" DB_ID="70-3755" Conc="34.3"/>
+      <Phase Formula="( K , Na ) ( Al , Mg , Fe )2 ( Si3.1 Al0.9 ) O10 ( O H )2" Name="Muscovit" DB_ID="7-  42" Conc="24.4"/>
+      <Phase Formula="K2 ( Al3.74 Fe0.26 ) ( Al2 Si6 O20 ) ( O H )4" Name="Muscovite-2M1" DB_ID="76- 668" Conc="7.07"/>
+      <Phase Formula="( Mg , Fe )6 ( Si , Al )4 O10 ( O H )8" Name="Clinochlore-1MIIb, Fe+2-bea" DB_ID="29- 701" Conc="2"/>
+      <Phase Formula="Ti O2" Name="Rutile, syn" DB_ID="78-4189" Conc="0.4"/>
+      <Phase Formula="Na Al Si3 O8" Name="Albite" DB_ID="74- 603" Conc="3.31"/>
+      <Phase Formula="Fe O O H" Name="Goethite" DB_ID="84-8280" Conc="2.93"/>
+      <Phase Formula="Mg3 Si4 O10 ( O H )2" Name="Talc-2M" DB_ID="19- 770" Conc="1.41"/>
+      <Phase Formula="K Al2 Si3 Al O10 ( O H )2" Name="Muscovite-1M, syn" DB_ID="7-  25" Conc="2.35"/>
+      <Phase Formula="Na Mg3 ( Al6 Si6 O18 ) ( B O3 )3 ( O H )3 ( O H )" Name="Dravite" DB_ID="84-9514" Conc="1.88"/>
+      <Phase Formula="Al2 Si2 O5 ( O H )4" Name="Dickite-2M1" DB_ID="58-2002" Conc="0.47"/>
+      <Phase Formula="Al2 Si2 O5 ( O H )4" Name="Halloysite-7A" DB_ID="3- 184" Conc="2.94"/>
+      <Phase Formula="Ca2 ( Mg , Fe +2 )5 Si8 O22 ( O H )2" Name="Actinolite" DB_ID="41-1366" Conc="3.06"/>
+      <Phase Formula="Mg4 Al2 Si10 O27 !15 H2 O" Name="Sepiolite, alumian" DB_ID="2-  34" Conc="11.7"/>
+      <Phase Formula="K Al2 ( Si3 Al O10 ) ( O H )2" Name="Illite, 1M" DB_ID="2- 462" Conc="1.17"/>
+      <Phase Formula="Ca ( C O3 )" Name="Calcite" DB_ID="72-1652" Conc="0.36"/>
+    </IPS_Phases>
+    <Topas_Elements>
+      <Element Name="H" Conc="0.43"/>
+      <Element Name="B" Conc="0.06"/>
+      <Element Name="C" Conc="0.02"/>
+      <Element Name="O" Conc="49.34"/>
+      <Element Name="F" Conc="0"/>
+      <Element Name="Na" Conc="0.26"/>
+      <Element Name="Mg" Conc="1.82"/>
+      <Element Name="Al" Conc="7.36"/>
+      <Element Name="Si" Conc="27.08"/>
+      <Element Name="K" Conc="2.14"/>
+      <Element Name="Ca" Conc="0.34"/>
+      <Element Name="Ti" Conc="0.64"/>
+      <Element Name="V" Conc="0"/>
+      <Element Name="Fe" Conc="10.53"/>
+      <Element Name="Zn" Conc="0"/>
+    </Topas_Elements>
+    <Topas_Phases>
+      <Phase Formula="" Name="Quartz" DB_ID="Quartz" Conc="31.484" ESU="7.92789988565621"/>
+      <Phase Formula="" Name="Muscovite_3T" DB_ID="26818" Conc="1.586" ESU="28.2099621689786"/>
+      <Phase Formula="" Name="Muscovite_2M1" DB_ID="68547" Conc="17.395" ESU="36.8960045990227"/>
+      <Phase Formula="" Name="Clinochlore" DB_ID="66258" Conc="3.101" ESU="14.8932602386327"/>
+      <Phase Formula="" Name="Rutile" DB_ID="80843" Conc="1.07" ESU="13.5495327102804"/>
+      <Phase Formula="" Name="Albite" DB_ID="77421" Conc="0.37" ESU="64.0459459459459"/>
+      <Phase Formula="" Name="Goethite" DB_ID="245057" Conc="14.112" ESU="8.02366780045351"/>
+      <Phase Formula="" Name="Talc_1A" DB_ID="100682" Conc="0" ESU="100"/>
+      <Phase Formula="" Name="Muscovite_1M" DB_ID="63123" Conc="6.27" ESU="12.4044657097289"/>
+      <Phase Formula="" Name="Dravite" DB_ID="5353" Conc="1.812" ESU="15.1318984547461"/>
+      <Phase Formula="" Name="Dickite" DB_ID="98132" Conc="6.258" ESU="11.6610738255034"/>
+      <Phase Formula="" Name="Halloysite" DB_ID="186723" Conc="6.692" ESU="11.1703526598924"/>
+      <Phase Formula="" Name="Actinolite" DB_ID="68319" Conc="3.298" ESU="9.80412371134021"/>
+      <Phase Formula="" Name="Sepiolite" DB_ID="182398" Conc="5.247" ESU="8.10691823899371"/>
+      <Phase Formula="" Name="Illite_2M1" DB_ID="90144" Conc="1.169" ESU="57.7100085543199"/>
+      <Phase Formula="" Name="Calcite" DB_ID="191852" Conc="0.135" ESU="100"/>
+    </Topas_Phases>
+    <Topas_Phases_Elems>
+      <Phase Ph="0" Count="2" El1="O" C1="0.53256256483942" El2="Si" C2="0.46743743516058"/>
+      <Phase Ph="1" Count="5" El1="O" C1="0.481317724450119" El2="Al" C2="0.196837220651659" El3="Si" C3="0.211227164738119" El4="K" C4="0.0980179147283" El5="Fe" C5="0.0125999754318028"/>
+      <Phase Ph="2" Count="7" El1="H" C1="0.00495573393903415" El2="O" C2="0.471956838900545" El3="Na" C3="0.0101726517724246" El4="Al" C4="0.132651919916716" El5="Si" C5="0.250569380889697" El6="K" C6="0.0788111646589307" El7="Fe" C7="0.0508823099226527"/>
+      <Phase Ph="3" Count="6" El1="H" C1="0.0132711101748195" El2="O" C2="0.473979506186656" El3="Mg" C3="0.118405590538481" El4="Al" C4="0.117722573148694" El5="Si" C5="0.121291544738462" El6="Fe" C6="0.155329675212887"/>
+      <Phase Ph="4" Count="2" El1="O" C1="0.402589232917731" El2="Ti" C2="0.597410767082269"/>
+      <Phase Ph="5" Count="5" El1="O" C1="0.48811507762477" El2="Na" C2="0.087673468765135" El3="Al" C3="0.102895245649695" El4="Si" C4="0.3213162079604" El5="Fe" C5="0"/>
+      <Phase Ph="6" Count="3" El1="H" C1="0.0113447399741705" El2="O" C2="0.360136406992547" El3="Fe" C3="0.628518853033283"/>
+      <Phase Ph="7" Count="4" El1="H" C1="0.00531553052475044" El2="O" C2="0.506222545653974" El3="Mg" C3="0.192252930660803" El4="Si" C4="0.296208993160473"/>
+      <Phase Ph="8" Count="9" El1="H" C1="0.00511800479051341" El2="O" C2="0.487411256817977" El3="Na" C3="0.00116779871212112" El4="Mg" C4="0.0172770742072614" El5="Al" C5="0.153983145618153" El6="Si" C6="0.243276589316927" El7="K" C7="0.0794065043849572" El8="Ca" C8="0.00101801583382732" El9="Fe" C9="0.0113416103182632"/>
+      <Phase Ph="9" Count="14" El1="H" C1="0.0031081205173645" El2="B" C2="0.0333388841604066" El3="O" C3="0.509768770361599" El4="F" C4="7.81227514010699E-5" El5="Na" C5="0.0168731437280451" El6="Mg" C6="0.0537402295164202" El7="Al" C7="0.177144366732865" El8="Si" C8="0.17096787236113" El9="K" C9="0.000120610563566564" El10="Ca" C10="0.00407848732424094" El11="Ti" C11="0.00191880442037716" El12="V" C12="0.000156930790095132" El13="Fe" C13="0.0278987309849908" El14="Zn" C14="0.000806925787497893"/>
+      <Phase Ph="10" Count="4" El1="H" C1="0.0156172377428361" El2="O" C2="0.557771771603103" El3="Al" C3="0.209029081742832" El4="Si" C4="0.217581908911229"/>
+      <Phase Ph="11" Count="3" El1="O" C1="0.566620823717135" El2="Al" C2="0.212345329233045" El3="Si" C3="0.221033847049819"/>
+      <Phase Ph="12" Count="8" El1="H" C1="0.00245064669843431" El2="O" C2="0.46677222114169" El3="Na" C3="0.00279466109112127" El4="Mg" C4="0.135612175435184" El5="Al" C5="0.00754400466789847" El6="Si" C6="0.270394097053389" El7="Ca" C7="0.0818474666925994" El8="Fe" C8="0.032584727219683"/>
+      <Phase Ph="13" Count="3" El1="O" C1="0.573426154755951" El2="Mg" C2="0.152047143269076" El3="Si" C3="0.274526701974974"/>
+      <Phase Ph="14" Count="5" El1="O" C1="0.477299452079314" El2="Al" C2="0.251901190310455" El3="Si" C3="0.139642707981146" El4="K" C4="0.0971993645711104" El5="Fe" C5="0.0339572850579742"/>
+      <Phase Ph="15" Count="3" El1="C" C1="0.120002464526636" El2="O" C2="0.479565244179637" El3="Ca" C3="0.400432291293727"/>
+    </Topas_Phases_Elems>
+  </Sample>
+</OneSample>
